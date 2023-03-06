@@ -1,0 +1,22 @@
+{
+  "name": "elite5",
+  "version": "1.0.0",
+  "description": "pokemon",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsmeBinayak/Elite5.git"
+  },
+  "author": "Elite 5",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsmeBinayak/Elite5/issues"
+  },
+  "homepage": "https://github.com/itsmeBinayak/Elite5#readme",
+  "devDependencies": {
+    "@types/node": "^18.14.6"
+  }
+}
