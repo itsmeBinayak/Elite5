@@ -1,56 +1,92 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10%;
-    padding-right: 10%;
-    background-color: red;
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+  background-color: red;
 }
-nav ul li{
-    list-style-type: none;
-    display: inline-block;
-    padding: 10px 20px;
-    
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 10px 20px;
 }
-nav ul li a{
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }
-.container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 2rem;
-    max-width: 700px;
-    margin: auto;
-    padding: 1.5rem;
-    justify-content: center;
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 2rem;
+  max-width: 700px;
+  margin: auto;
+  padding: 1.5rem;
+  justify-content: center;
 }
-figure{
-    grid-row-start: 1;
-    grid-row-end: span 1;
+figure {
+  grid-row-start: 1;
+  grid-row-end: span 1;
 }
-footer{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 2rem;
-    text-align: center;
-    background-color: red;
-    color: white;
-  }
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  background-color: red;
+  color: white;
+}
 
 /* ----------------------------------- */
 /* login page start*/
 
+.login_main {
+  height: 100vh;
+}
 
+.login_body {
+  display: grid;
+  grid-template-areas: "left left right";
+}
+
+.login_left {
+  grid-area: left;
+  background-color: green;
+}
+
+.login_left img {
+  width: 100%;
+}
+
+.login_right {
+  grid-area: right;
+  background-color: brown;
+}
+
+/* .login_root {
+  height: 100vh;
+} */
+
+/* .login_image {
+  background-repeat: no-repeat;
+  animation: fadein 2s;
+  background-size: cover;
+  background-position: center;
+} */
+
+/* .login_aside {
+  background-color: white;
+} */
 
 /* login page end*/
 /* ----------------------------------- */
