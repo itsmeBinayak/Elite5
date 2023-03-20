@@ -1,48 +1,173 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-nav{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10%;
-    padding-right: 10%;
-    background-color: red;
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+  background-color: red;
 }
-nav ul li{
-    list-style-type: none;
-    display: inline-block;
-    padding: 10px 20px;
-    
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 10px 20px;
 }
-nav ul li a{
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }
-.container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 2rem;
-    max-width: 700px;
-    margin: auto;
-    padding: 1.5rem;
-    justify-content: center;
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 2rem;
+  max-width: 700px;
+  margin: auto;
+  padding: 1.5rem;
+  justify-content: center;
 }
-figure{
-    grid-row-start: 1;
-    grid-row-end: span 1;
+figure {
+  grid-row-start: 1;
+  grid-row-end: span 1;
 }
-footer{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 2rem;
-    text-align: center;
-    background-color: red;
-    color: white;
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  background-color: red;
+  color: white;
+}
+
+/* ----------------------------------- */
+/* login page start*/
+
+.login_main {
+  height: 100vh;
+}
+
+.login_body {
+  display: grid;
+  grid-template-areas: "left left right";
+  grid-template-columns: 2fr 2fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 16px;
+}
+
+.login_left {
+  grid-area: left;
+}
+
+.login_img {
+  background-image: url(https://wallpapercave.com/wp/wp3961359.jpg);
+  background-repeat: no-repeat;
+  animation: fadein 2s;
+  background-color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.login_right {
+  grid-area: right;
+  margin: 64px auto;
+  max-width: 480px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 24px 0 24px;
+}
+
+.login_logo {
+  width: 85px;
+  height: 85px;
+  padding: 5px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 0px;
+  background-color: rgba(0, 0, 0, 0);
+  text-align: center;
+}
+
+.login_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.login_form fieldset {
+  border: none;
+}
+
+.login_form label {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.login_form input {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login_signIn, .login_signUp {
+  margin: 24px 0 1px;
+  background-color: blue;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login_signUp{
+  background-color: red;
+}
+
+@media (max-width: 1200px) {
+  .login_body {
+    grid-template-areas: "left right right";
+    grid-template-columns: 3fr 2fr 2fr;
   }
+
+  .login_left {
+    grid-area: left;
+  }
+
+  .login_right {
+    grid-area: right;
+  }
+}
+
+@media (max-width: 600px) {
+  .login_body {
+    grid-template-areas: "right right right";
+    grid-template-columns: 1fr 2fr 2fr;
+  }
+
+  .login_left {
+    display: none;
+  }
+
+  .login_right {
+    grid-area: right;
+  }
+}
+
+/* login page end*/
+/* ----------------------------------- */
