@@ -9,18 +9,31 @@
   </head>
   <body>
     <main class="login_main login_body">
-      <section class="login_left">
-        <img src="./images/loginWallpaper.jpg" alt="" />
-      </section>
+      <section class="login_left login_img"></section>
       <section class="login_right">
-        <form action="" method="get">
-            <legend>
-                <fieldset>
-
-                </fieldset>
-            </legend>
+        <img src="./images/pokeball.png" class="login_logo" alt="" srcset="" />
+        <h1>Sign In</h1>
+        <form action="" method="get" class="login_form">
+          <fieldset>
+            <label for="username">Username</label><br />
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="username"
+              required
+            /><br /><br />
+            <label for="password">Password</label><br />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password"
+              required
+            /><br /><br />
+          </fieldset>
+          <input type="submit" value="SIGN IN" class="login_submit" />
         </form>
-        <p>jkj</p>
       </section>
     </main>
     <aside class="login_aside"></aside>
