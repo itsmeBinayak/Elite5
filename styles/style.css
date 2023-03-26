@@ -1,27 +1,37 @@
+@import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10%;
     padding-right: 10%;
     background-color: red;
-}
-nav ul li{
-    list-style-type: none;
-    display: inline-block;
-    padding: 10px 20px;
     
+}
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 10px 20px;
 }
 nav ul li a{
     text-decoration: none;
     color: white;
+    font-family: 'Pokemon Solid', sans-serif;      
+    font-size: larger;
+    letter-spacing: 2px;                                        
+}
+nav ul li a:hover{
+    text-decoration: none;
+    color: blue;
     font-weight: bold;
 }
 h1 {
@@ -31,16 +41,12 @@ h1 {
 .container{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-gap: 2rem;
     max-width: 700px;
     margin: auto;
     padding: 1.5rem;
     justify-content: center;
-}
-figure{
-    grid-row-start: 1;
-    grid-row-end: span 1;
 }
 footer{
     position: fixed;
@@ -50,4 +56,11 @@ footer{
     text-align: center;
     background-color: red;
     color: white;
+  }
+
+  @media only screen and (max-width: 500px) {
+    .container{
+        grid-template-columns: 1fr;
+    }
+    
   }

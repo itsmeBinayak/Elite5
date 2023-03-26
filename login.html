@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+  </head>
+  <body>
+    <main class="login_main login_body">
+      <section class="login_left login_img"></section>
+      <section class="login_right">
+        <img src="./images/pokeball.png" class="login_logo" alt="" srcset="" />
+        <h1>Sign In</h1>
+        <form action="" method="get" class="login_form">
+          <fieldset>
+            <label for="username">Username</label><br />
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="username"
+              required
+            /><br /><br />
+            <label for="password">Password</label><br />
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="password"
+              required
+            /><br /><br />
+          </fieldset>
+          <input type="submit" value="Login" class="login_signIn" />
+          <input type="submit" value="Sign Up" class="login_signUp" />
+          <a href="./registration.html" class="login_signUp">Sign Up</a>
+        </form>
+      </section>
+    </main>
+    <aside class="login_aside"></aside>
+  </body>
+</html>
