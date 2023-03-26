@@ -117,7 +117,7 @@ h1 {
   margin-bottom: 8px;
 }
 
-.login_form input {
+.login_form input, .login_signUp {
   padding: 8px;
   width: 100%;
   border: 1px solid #ccc;
@@ -137,6 +137,9 @@ h1 {
 
 .login_signUp{
   background-color: red;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
 }
 
 @media (max-width: 1200px) {
