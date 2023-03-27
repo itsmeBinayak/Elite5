@@ -29,4 +29,23 @@
 button:hover{
     cursor: pointer;
 }
+figcaption{
+    margin: auto;
+    display: block;
+    width: 60px;
+    height: 60px;
+    font-size: x-large;
+    font-family: 'Pokemon Solid', sans-serif; 
+    color: blue;
+}
+
+.catchbutton{
+    margin: auto;
+    display: block;
+    width: 80px;
+    height: 80px;
+}
+.catchbutton :hover{
+    cursor: pointer;
+}
 
