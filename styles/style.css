@@ -4,6 +4,10 @@
     margin: 0;
     box-sizing: border-box;
 }
+body{
+  background: url(https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png);
+  height: 100%;
+}
 
 nav{
     display: flex;
@@ -49,6 +53,7 @@ h1 {
     justify-content: center;
 }
 footer{
+    
     position: fixed;
     bottom: 0;
     width: 100%;

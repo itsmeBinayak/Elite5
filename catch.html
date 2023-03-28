@@ -26,38 +26,111 @@
     <main>
         <div class="flex-container">
             <div id="pokemon-container1" class="pokemon-container">
-                <div class="searchbox">
-                    <input id="pokemonName1" type="text" placeholder="Pokemon name">
-                    <button id="search1">🔍</button>
-                </div>
+                
+                <div class="dropdown">
+                    <button class="dropbtn">kies je eigen pokemon</button>
+                    <div class="dropdown-content">
+                    <a href="#">Pikachu</a>
+                    <a href="#">Squirtle</a>
+                    <a href="#">Charmander</a>
+                    </div>
+                  </div>
+                  
+                  <h3 class="name">pikachu</h3>
                 <div class="img">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" width="250px" height="250px" >
                 </div>
-                <ul id="stats1" class="stats-list">
-                    <li>hp: 35</li>
-                    <li>attack: 55</li>
-                    <li>defense: 40</li>
-                    <li>special-attack: 50</li>
-                    <li>special-defense: 50</li>
-                    <li>speed: 90</li>
-                </ul>
+                <section>
+                    <h3>Base stats</h3>
+                <div id="stats1" >
+                    <div class="skill_box">
+                         hp:<p class="stat_value">35</p> 
+                         <div class="skill">
+                            <div class="skill_level"data-percentage="35"></div>
+                        </div>
+                    <div class="skill_box">
+                        attack:<p class="stat_value">55</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="55">
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        defense:<p class="stat_value">40</p> 
+                        <div class="skill">
+                            <div class="skill_level" data-percentage="40">
+                        </div>        
+                    </div>             
+                    <div class="skill_box">
+                        special-attack:<p class="stat_value">50</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="50">
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                            special-defense:<p class="stat_value">50</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="50">
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        speed:<p class="stat_value">90</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="90">
+                        </div>        
+                    </div>
+                </div>
+                    
+                </div>
+            </section>
+                
             </div>
             <div id="pokemon-container2" class="pokemon-container">
-                <div class="searchbox">
-                    <input id="pokemonName2" type="text" placeholder="Pokemon name">
-                    <button id="search2">🔍</button>
-                </div>
+                <h3 class="name">Charmander</h3>
                 <div class="img">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" width="250px" height="250px" >
                 </div>
-                <ul id="stats2" class="stats-list">
-                    <li>hp: 39</li>
-                    <li>attack: 52</li>
-                    <li>defense: 43</li>
-                    <li>special-attack: 60</li>
-                    <li>special-defense: 50</li>
-                    <li>speed: 65</li>
-                </ul>
+                <section>
+                    <h3>Base stats</h3>
+                <div id="stats1" >
+                    <div class="skill_box">
+                         hp:<p class="stat_value">39</p> 
+                         <div class="skill">
+                            <div class="skill_level"data-percentage="39"></div>
+                        </div>
+                    <div class="skill_box">
+                        attack:<p class="stat_value">52</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="52">
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        defense:<p class="stat_value">43</p> 
+                        <div class="skill">
+                            <div class="skill_level" data-percentage="43">
+                        </div>        
+                    </div>             
+                    <div class="skill_box">
+                        special-attack:<p class="stat_value">60</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="60">
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        special-defense: <p class="stat_value">50</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="50">
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        speed:<p class="stat_value">65</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="65">
+                        </div>        
+                    </div>
+                </div>
+                    
+                </div>
+            </section>
             </div>
             
         </div>
@@ -73,4 +146,6 @@
     </footer>
 
 </body>
+<script src="percentage.js"></script>
 </html>
+
