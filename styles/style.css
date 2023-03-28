@@ -5,16 +5,13 @@
     box-sizing: border-box;
 }
 body{
-<<<<<<< HEAD
   background: url(https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png);
   height: 100%;
-=======
     font-family: 'Pokemon Solid', sans-serif;  
     letter-spacing: 2px;   
 }
 main{
     height: 100vh;
->>>>>>> 7523dd0df21e78448e6486b997fe572f970be91f
 }
 
 nav{
