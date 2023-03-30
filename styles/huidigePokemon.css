@@ -1,13 +1,15 @@
 .hp_Container {
   display: flex;
-  flex-direction: row;
+  flex-direction: row wrap;
   justify-content: space-around;
-  overflow: auto;
   justify-content: center;
+  padding: 3rem;
 }
 
 .hp_item {
+  /* width: 30rem; */
   margin: 0 0.5rem 0.5rem 0;
+  text-align: center;
 }
 
 .hp_button {
@@ -18,12 +20,40 @@
 }
 
 .hp_button {
-  margin: 24px 0 1px;
+  text-align: center;
+  width: 300px;
   background-color: blue;
   color: #fff;
   text-transform: uppercase;
   padding: 8px 16px;
+  margin-bottom: 80px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.hp_bigImg {
+  width: 200px;
+  height: 200px;
+}
+
+.hp_smallImg {
+  width: 100px;
+  height: 100px;
+}
+
+@media all and (max-width: 600px) {
+  .hp_Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    justify-content: center;
+    padding: 3rem;
+  }
+
+  .hp_button {
+    margin: 0 auto;
+    width: 200px;
+    margin-bottom: 80px;
+  }
 }
