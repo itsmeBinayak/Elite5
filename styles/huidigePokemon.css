@@ -69,6 +69,15 @@
   width: 20%;
 }
 
+.name {
+  font-size: 40px;
+  color: white;
+}
+
+h4 {
+  color: white;
+}
+
 @media all and (max-width: 600px) {
   .hp_Container {
     display: flex;
