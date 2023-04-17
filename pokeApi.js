@@ -13,7 +13,7 @@ const getPokemon = (e, pokemonNumber, defaultPokemon = "pikachu") => {
     .then(data => {
       
       //shows name api
-      nameElement.textContent = data.name[0].toUpperCase() + data.name.slice(1);
+      n = data.name[0].toUpperCase() + data.name.slice(1);
       
       //show immage api
       img.src = data.sprites.other["official-artwork"].front_default;
