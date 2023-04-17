@@ -11,7 +11,7 @@ body{
     letter-spacing: 2px;   
 }
 main{
-    height: 80vh;
+    height: auto;
 }
 
 nav{
