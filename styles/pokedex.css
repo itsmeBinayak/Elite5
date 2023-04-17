@@ -1,25 +1,5 @@
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10%;
-    padding-right: 10%;
-    background-color: red;
-}
-
-nav ul li {
-    list-style-type: none;
-    display: inline-block;
-    padding: 10px 20px;
-
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
+.ain{
+  height: 200vh;
 }
 
 h1 {
@@ -69,6 +49,7 @@ h1 {
     max-width: 800px;
     justify-content: center;
     margin-top: 75px;
+    margin-bottom: 100px;
   }
   
   .card {

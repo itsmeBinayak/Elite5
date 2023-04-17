@@ -1,6 +1,4 @@
-const lowerCaseName = string => string.toLowerCase();
-
-
+const lowerCaseName = string => string.toLowerCase()
 
 const getPokemon = (e, pokemonNumber, defaultPokemon = "pikachu") => {
   const nameInput = lowerCaseName(document.querySelector(`#pokemonName${pokemonNumber}`).value);
@@ -14,15 +12,15 @@ const getPokemon = (e, pokemonNumber, defaultPokemon = "pikachu") => {
     .then(response => response.json())
     .then(data => {
       
-      
+      //shows name api
       nameElement.textContent = data.name[0].toUpperCase() + data.name.slice(1);
       
-
+      //show immage api
       img.src = data.sprites.other["official-artwork"].front_default;
       img.alt = data.name;
 
       
-
+ // shows stats api 
       statsList.innerHTML = "<h3>Base stats </h3>";
       data.stats.forEach((stat, index) => {
         const listItem = document.createElement("div");
@@ -44,7 +42,7 @@ const getPokemon = (e, pokemonNumber, defaultPokemon = "pikachu") => {
 
  
 };
-
+//vergelijkt de beide stats en geeft ze de kleur 
 const compareStats = (statValue1, statValue2, listItem, skillLevel1, skillLevel2) => {
   
   
@@ -54,7 +52,7 @@ const compareStats = (statValue1, statValue2, listItem, skillLevel1, skillLevel2
   skillLevel1.style.backgroundColor = percentage1 > percentage2 ? "limegreen" : percentage1 < percentage2 ? "red" : "yellow";
   skillLevel2.style.backgroundColor = percentage2 > percentage1 ? "limegreen" : percentage2 < percentage1 ? "red" : "yellow";
 };
-
+//vergelijkt alle stats met compareStats
 const compareAllStats = () => {
   const statsItems1 = document.querySelectorAll("#stats1 .skill_box");
   const statsItems2 = document.querySelectorAll("#stats2 .skill_box");
@@ -70,14 +68,14 @@ const compareAllStats = () => {
   });
 };
 
-
+//
 document.querySelector("#search1").addEventListener("click", e => getPokemon(e, 1));
 document.querySelector("#search2").addEventListener("click", e => getPokemon(e, 2));
 document.querySelector("#compare").addEventListener("click", compareAllStats);
 
 window.onload = () => {
-    
+   
     const defaultPokemon2 = "charmander";
-    getPokemon(null, 1);
+    getPokemon(null, 1,);
     getPokemon(null, 2, defaultPokemon2);
   };

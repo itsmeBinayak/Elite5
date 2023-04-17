@@ -1,4 +1,4 @@
-/* Define a Percentage class */
+
 class Percentage {
     constructor(element, percentage) {
       this.element = element;
@@ -13,7 +13,6 @@ class Percentage {
     }
   }
   
-  /* Instantiate a Percentage object for each element with class "percentage" */
   document.querySelectorAll(".skill_level").forEach(element => {
     const percentageValue = element.getAttribute("data-percentage");
     const percentage = new Percentage(element, percentageValue);

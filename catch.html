@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/vergelijkenStyle.css">
+    <link rel="stylesheet" href="./styles/pokebal.css">
     <title>Pokemon</title>
 </head>
 <body>
@@ -26,15 +27,18 @@
     <main>
         <div class="flex-container">
             <div id="pokemon-container1" class="pokemon-container">
-                
-                <div class="dropdown">
-                    <button class="dropbtn">kies je eigen pokemon</button>
+               <div class="btnContainer">
+                <p>kies :</p> 
+                <div class="dropdown" >
+                    <button class="dropbtn"></button>
                     <div class="dropdown-content">
                     <a href="#">Pikachu</a>
                     <a href="#">Squirtle</a>
                     <a href="#">Charmander</a>
                     </div>
                   </div>
+                </div> 
+                
                   
                   <h3 class="name">pikachu</h3>
                 <div class="img">
@@ -84,7 +88,16 @@
             </section>
                 
             </div>
+
+            <figure class="fig">
+                <figcaption>catch</figcaption> 
+                <img  id =image class="catchbutton"  src="./images/pokeball2.png" >
+                 </img>
+            </figure>
+
+
             <div id="pokemon-container2" class="pokemon-container">
+                <br>
                 <h3 class="name">Charmander</h3>
                 <div class="img">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png" width="250px" height="250px" >
@@ -134,11 +147,7 @@
             </div>
             
         </div>
-        <figure class="fig">
-            <figcaption>catch</figcaption> 
-            <img id="compare" class="catchbutton"  src="./images/pokeball.png" alt="Compare">
-             </img>
-        </figure>
+       
         
     </main>
     <footer>
@@ -147,5 +156,6 @@
 
 </body>
 <script src="percentage.js"></script>
+<script src="pokeball-animation.js"></script>
 </html>
 
