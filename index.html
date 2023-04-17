@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/vergelijkenStyle.css">
     <title>Pokemon</title>
 </head>
 <body>
@@ -19,22 +20,64 @@
                 <li><a href="#">Battle</a></li>
                 <li><a href="#">Who is that pokemon?</a></li>
             </ul>
-            <img src="./images/pikachu.png" width="50px" height="50px" alt="pikachu">
+            <a href="login.html"><img src="./images/pikachu.png" width="50px" height="50px" alt="pikachu"></a>
         </nav>
     </header>
     <main>
         <h1 style="text-align: center;" > Welcome to the world of pokémon</h1>
-        <section class="container">
+        <div class="container">
         <figure>
             <img src="./images/pika.png" width="500px" height="500px" alt="pikachu" >
         </figure>
-        <figure>
-            <img src="./images/pikachu stats.png" width="500px" height="500px" alt="stats" >
-        </figure>
-        </section>
+        <section class="pokemon-container">
+            <h3>Base stats</h3>
+                <div id="stats1" >
+                    <div class="skill_box">
+                         hp:<p class="stat_value">35</p> 
+                         <div class="skill">
+                            <div class="skill_level"data-percentage="35"></div>
+                        </div>
+                    <div class="skill_box">
+                        attack:<p class="stat_value">55</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="55"></div>
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        defense:<p class="stat_value">40</p> 
+                        <div class="skill">
+                            <div class="skill_level" data-percentage="40"></div>
+                        </div>        
+                    </div>             
+                    <div class="skill_box">
+                        special-attack:<p class="stat_value">50</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="50"></div>
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                            special-defense:<p class="stat_value">50</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="50"></div>
+                        </div>
+                    </div> 
+                    <div class="skill_box">
+                        speed:<p class="stat_value">90</p> 
+                        <div class="skill">
+                            <div class="skill_level"data-percentage="90"></div>
+                        </div>        
+                    </div>
+                </div>
+                    
+                </div>
+    </section>
+        </div>
+        <br>
     </main>
     <footer>
         <p>&copy; pokemon by Elite 5</p>
     </footer>
 </body>
+
+<script src="percentage.js"></script>
 </html>
