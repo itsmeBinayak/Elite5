@@ -1,0 +1,34 @@
+.whoIsThatPokemon{
+    padding: auto;
+    padding-left: 150px;
+    padding-top: 30px;
+
+    width: 700px;
+
+}
+.checkButton{
+    width: 150px;
+    height: 50px;
+    background-color: blue;
+    color: white;
+    font-family: 'Pokemon Solid', sans-serif;  
+    font-size: medium;
+    letter-spacing: 2px;
+}
+.checkButton:hover{
+    cursor: pointer;
+}
+.whoInput{
+    text-align: center;
+    padding: 20px;
+    
+}
+input{
+    width: 250px;
+    height: 50px;
+    font-family: 'Pokemon Solid', sans-serif;  
+    font-size: medium;
+    letter-spacing: 2px;   
+}
+
+    
