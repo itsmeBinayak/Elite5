@@ -17,6 +17,11 @@ app.get("/projects", (req: any, res: any) => {
   res.render("landingPage");
 });
 
+// projectsError - projects Error page
+app.get("/projectsError", (req: any, res: any) => {
+  res.render("projectsError");
+});
+
 // login - login page
 app.get("/login", (req: any, res: any) => {
   res.render("login");
