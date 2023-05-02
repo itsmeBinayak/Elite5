@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <main class="login_main login_body">
+      <section class="login_left login_img"></section>
+      <section class="center">
+        <a href="/"
+          ><img src="./images/pokeball.png" class="login_logo" alt="" srcset=""
+        /></a>
+        <h1>Account Created</h1>
+        <p>Hello <%= firstname %>,</p>
+
+        <p>Your Account has been successfully created.</p>
+        <p>You can now login to our website.</p>
+        <p>Enjoy.</p>
+
+        <form action="/login" class="login_form">
+          <input type="submit" value="login" class="login_signIn" />
+        </form>
+      </section>
+    </main>
+    <aside class="login_aside"></aside>
+  </body>
+</html>

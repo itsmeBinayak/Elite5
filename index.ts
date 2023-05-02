@@ -1,7 +1,10 @@
 import express from "express";
 import ejs from "ejs";
+import fs from "fs/promises";
 
 const app = express();
+
+app.use(express.urlencoded({ extended: true }));
 
 app.set("port", 3000);
 app.set("view engine", "ejs");
@@ -32,6 +35,44 @@ app.get("/signUp", (req: any, res: any) => {
   res.render("signUp");
 });
 
+// signUp - signup page
+app.post("/signUp", async (req: any, res: any) => {
+  accounts.push({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,
+  });
+
+  await writeAccounts();
+
+  res.render("accountMade", {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,
+  });
+});
+
+interface Account {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+}
+
+let accounts: Account[] = [];
+
+const readAccounts = async () => {
+  const data = JSON.parse(await fs.readFile("./accounts.json", "utf-8"));
+
+  accounts = data;
+};
+
+const writeAccounts = async () => {
+  await fs.writeFile("./accounts.json", JSON.stringify(accounts));
+};
+
 // pokemonComparison - vergelijken
 app.get("/pokemonComparison", (req: any, res: any) => {
   res.render("vergelijken");
@@ -59,6 +100,6 @@ app.get("/whoIsThatPokemon", (req: any, res: any) => {
 
 app.listen(app.get("port"), async () => {
   console.log(`Web application started at http://localhost:${app.get("port")}`);
-  //   await readContacts();
-  console.log("Contacts read!");
+  await readAccounts();
+  console.log("Account read!");
 });
