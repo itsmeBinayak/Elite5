@@ -1,14 +1,47 @@
 import express from "express";
 import ejs from "ejs";
 import fs from "fs/promises";
+import { MongoClient, ObjectId } from "mongodb";
+// const pokemonName = require("./public/js/fromPokedex.js");
+// import pokemonName from "./public/js/fromPokedex.js";
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-
 app.set("port", 3000);
 app.set("view engine", "ejs");
+
 app.use(express.static("public"));
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: true }));
+
+interface PeopleProfile {
+  _id?: ObjectId;
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  yourPokemon: string[];
+  currentPokemon: string;
+}
+
+let peopleProfiles: PeopleProfile[] = [
+  {
+    firstname: "shreejan1",
+    lastname: "joshi1",
+    email: "shreejan1212@gmail.com",
+    password: "password",
+    yourPokemon: ["pikachu", "charmander"],
+    currentPokemon: "pikachu",
+  },
+  {
+    firstname: "shreejan2",
+    lastname: "joshi2",
+    email: "shreejan1212@gmail.com",
+    password: "password",
+    yourPokemon: ["pikachu"],
+    currentPokemon: "pikachu",
+  },
+];
 
 // index - home page
 app.get("/", (req: any, res: any) => {
