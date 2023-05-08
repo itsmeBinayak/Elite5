@@ -5,6 +5,11 @@ import { MongoClient, ObjectId } from "mongodb";
 // const pokemonName = require("./public/js/fromPokedex.js");
 // import pokemonName from "./public/js/fromPokedex.js";
 
+const uri: string =
+  "mongodb+srv://elite5:elite5password@mycluster.z2rzywu.mongodb.net/?retryWrites=true&w=majority";
+
+const client = new MongoClient(uri);
+
 const app = express();
 
 app.set("port", 3000);
@@ -24,34 +29,15 @@ interface PeopleProfile {
   currentPokemon: string;
 }
 
-let peopleProfiles: PeopleProfile[] = [
-  {
-    firstname: "shreejan1",
-    lastname: "joshi1",
-    email: "shreejan1212@gmail.com",
-    password: "password",
-    yourPokemon: ["pikachu", "charmander"],
-    currentPokemon: "pikachu",
-  },
-  {
-    firstname: "shreejan2",
-    lastname: "joshi2",
-    email: "shreejan1212@gmail.com",
-    password: "password",
-    yourPokemon: ["pikachu"],
-    currentPokemon: "pikachu",
-  },
-];
-
 // index - home page
 app.get("/", (req: any, res: any) => {
-  res.render("index");
+  res.render("landingPage");
 });
 
 // projects - landing page
-app.get("/projects", (req: any, res: any) => {
-  res.render("landingPage");
-});
+// app.get("/projects", (req: any, res: any) => {
+//   res.render("landingPage");
+// });
 
 // projectsError - projects Error page
 app.get("/projectsError", (req: any, res: any) => {
@@ -63,6 +49,41 @@ app.get("/login", (req: any, res: any) => {
   res.render("login");
 });
 
+app.post("/login", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let email = req.body.email;
+    let password = req.body.password;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let loginUser = await peopleProfileCollection.findOne<PeopleProfile>({
+      email: email,
+    });
+
+    // res.render("login", {
+    //   login: loginUser,
+    //   // email: loginUser?.email,
+    //   // password: loginUser?.password,
+    //   typedEmail: email,
+    //   typedPassword: password,
+    // });
+
+    if (password == loginUser?.password) {
+      res.redirect(`/user/${loginUser?._id}`);
+    } else {
+      res.redirect(`/login`);
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+});
+
 // signUp - signup page
 app.get("/signUp", (req: any, res: any) => {
   res.render("signUp");
@@ -70,21 +91,73 @@ app.get("/signUp", (req: any, res: any) => {
 
 // signUp - signup page
 app.post("/signUp", async (req: any, res: any) => {
-  accounts.push({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: req.body.password,
-  });
+  // accounts.push({
+  //   firstname: req.body.firstname,
+  //   lastname: req.body.lastname,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  // });
 
-  await writeAccounts();
+  // await writeAccounts();
 
-  res.render("accountMade", {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: req.body.password,
-  });
+  // res.render("accountMade", {
+  //   firstname: req.body.firstname,
+  //   lastname: req.body.lastname,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  // });
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+
+    await peopleProfileCollection.insertOne({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password,
+      yourPokemon: ["pikachu"],
+      currentPokemon: "pikachu",
+    });
+
+    res.render("accountMade", {
+      firstname: req.body.firstname,
+    });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+});
+
+app.get("/user/:id", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id: number = req.params.id;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: new ObjectId(id),
+    });
+
+    // if (!user) {
+    //   res.render("error");
+    //   return;
+    // }
+
+    res.render("index", { user: user });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
 });
 
 interface Account {
@@ -107,28 +180,123 @@ const writeAccounts = async () => {
 };
 
 // pokemonComparison - vergelijken
-app.get("/pokemonComparison", (req: any, res: any) => {
-  res.render("vergelijken");
+app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id: number = req.params.id;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: new ObjectId(id),
+    });
+
+    res.render("vergelijken", { user: user });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+  // res.render("vergelijken");
 });
 
 // pokedex - pokedex page
-app.get("/pokedex", (req: any, res: any) => {
-  res.render("pokedex");
+app.get("/user/:id/pokedex", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id: number = req.params.id;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: new ObjectId(id),
+    });
+
+    res.render("pokedex", { user: user });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+  // res.render("pokedex");
 });
 
 // currentPokemon - pokedex page
-app.get("/currentPokemon", (req: any, res: any) => {
-  res.render("huidigePokemon");
+app.get("/user/:id/currentPokemon", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id: number = req.params.id;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: new ObjectId(id),
+    });
+
+    res.render("huidigePokemon", { user: user });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+  // res.render("huidigePokemon");
 });
 
 // catch - catch page
-app.get("/catch", (req: any, res: any) => {
-  res.render("catch");
+app.get("/user/:id/catch", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id: number = req.params.id;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: new ObjectId(id),
+    });
+
+    res.render("catch", { user: user });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+  // res.render("catch");
 });
 
 // whoIsThatPokemon - whoIsThatPokemon page
-app.get("/whoIsThatPokemon", (req: any, res: any) => {
-  res.render("whoIsThatPokemon");
+app.get("/user/:id/whoIsThatPokemon", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id: number = req.params.id;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: new ObjectId(id),
+    });
+
+    res.render("whoIsThatPokemon", { user: user });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+  // res.render("whoIsThatPokemon");
 });
 
 app.listen(app.get("port"), async () => {

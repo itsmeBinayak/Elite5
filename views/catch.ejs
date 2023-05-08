@@ -12,16 +12,17 @@
 <body>
     <header>
         <nav>
-            <img src="./images/pokeball.png" width="50px" height="50px" alt="pokeball">
+            <img src="/images/pokeball.png" width="50px" height="50px" alt="pokeball">
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/pokemonComparison">Pokemon vergelijken</a></li>
-              <li><a href="/pokedex">Pokedex</a></li>
-              <li><a href="/catch">Catch</a></li>
-              <li><a href="/">Battle</a></li>
-              <li><a href="/whoIsThatPokemon">Who is that pokemon?</a></li>
+                <li><a href="/user/<%= user._id %>">Home</a></li>
+                <li><a href="/user/<%= user._id %>/pokemonComparison">Pokemon vergelijken</a></li>
+                <li><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
+                <li><a href="/user/<%= user._id %>/catch">Catch</a></li>
+                <li><a href="/user/<%= user._id %>">Battle</a></li>
+                <li><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+                <li><a href=""><%= user.firstname %></a></li>
             </ul>
-            <a href="/login"><img src="./images/pikachu.png" width="50px" height="50px" alt="pikachu"></a>
+            <a href="/login"><img src="/images/pikachu.png" width="50px" height="50px" alt="pikachu"></a>
         </nav>
     </header>
     <main>
@@ -91,7 +92,7 @@
 
             <figure class="fig">
                 <figcaption>catch</figcaption> 
-                <img  id =image class="catchbutton"  src="./images/pokeball2.png" >
+                <img  id =image class="catchbutton"  src="/images/pokeball2.png" >
                  </img>
             </figure>
 
