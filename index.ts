@@ -29,15 +29,10 @@ interface PeopleProfile {
   currentPokemon: string;
 }
 
-// index - home page
+// projects - landing page
 app.get("/", (req: any, res: any) => {
   res.render("landingPage");
 });
-
-// projects - landing page
-// app.get("/projects", (req: any, res: any) => {
-//   res.render("landingPage");
-// });
 
 // projectsError - projects Error page
 app.get("/projectsError", (req: any, res: any) => {
@@ -89,7 +84,6 @@ app.get("/signUp", (req: any, res: any) => {
   res.render("signUp");
 });
 
-// signUp - signup page
 app.post("/signUp", async (req: any, res: any) => {
   // accounts.push({
   //   firstname: req.body.firstname,
@@ -133,6 +127,7 @@ app.post("/signUp", async (req: any, res: any) => {
   }
 });
 
+// index - home page
 app.get("/user/:id", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -160,24 +155,24 @@ app.get("/user/:id", async (req: any, res: any) => {
   }
 });
 
-interface Account {
-  firstname: string;
-  lastname: string;
-  email: string;
-  password: string;
-}
+// interface Account {
+//   firstname: string;
+//   lastname: string;
+//   email: string;
+//   password: string;
+// }
 
-let accounts: Account[] = [];
+// let accounts: Account[] = [];
 
-const readAccounts = async () => {
-  const data = JSON.parse(await fs.readFile("./accounts.json", "utf-8"));
+// const readAccounts = async () => {
+//   const data = JSON.parse(await fs.readFile("./accounts.json", "utf-8"));
 
-  accounts = data;
-};
+//   accounts = data;
+// };
 
-const writeAccounts = async () => {
-  await fs.writeFile("./accounts.json", JSON.stringify(accounts));
-};
+// const writeAccounts = async () => {
+//   await fs.writeFile("./accounts.json", JSON.stringify(accounts));
+// };
 
 // pokemonComparison - vergelijken
 app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
@@ -200,7 +195,6 @@ app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
   } finally {
     await client.close();
   }
-  // res.render("vergelijken");
 });
 
 // pokedex - pokedex page
@@ -224,7 +218,6 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
   } finally {
     await client.close();
   }
-  // res.render("pokedex");
 });
 
 // currentPokemon - pokedex page
@@ -248,7 +241,6 @@ app.get("/user/:id/currentPokemon", async (req: any, res: any) => {
   } finally {
     await client.close();
   }
-  // res.render("huidigePokemon");
 });
 
 // catch - catch page
@@ -272,7 +264,6 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
   } finally {
     await client.close();
   }
-  // res.render("catch");
 });
 
 // whoIsThatPokemon - whoIsThatPokemon page
@@ -296,11 +287,10 @@ app.get("/user/:id/whoIsThatPokemon", async (req: any, res: any) => {
   } finally {
     await client.close();
   }
-  // res.render("whoIsThatPokemon");
 });
 
 app.listen(app.get("port"), async () => {
   console.log(`Web application started at http://localhost:${app.get("port")}`);
-  await readAccounts();
+  // await readAccounts();
   console.log("Account read!");
 });
