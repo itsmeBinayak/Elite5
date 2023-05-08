@@ -15,22 +15,27 @@
     <header>
       <nav>
         <img
-          src="./images/pokeball.png"
+          src="/images/pokeball.png"
           width="50px"
           height="50px"
           alt="pokeball"
         />
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/pokemonComparison">Pokemon vergelijken</a></li>
-          <li><a href="/pokedex">Pokedex</a></li>
-          <li><a href="/catch">Catch</a></li>
-          <li><a href="/">Battle</a></li>
-          <li><a href="/whoIsThatPokemon">Who is that pokemon?</a></li>
+          <li><a href="/user/<%= user._id %>">Home</a></li>
+          <li>
+            <a href="/user/<%= user._id %>/pokemonComparison"
+              >Pokemon comparison</a
+            >
+          </li>
+          <li><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
+          <li><a href="/user/<%= user._id %>/catch">Catch</a></li>
+          <li><a href="/user/<%= user._id %>">Battle</a></li>
+          <li><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+          <li><a href=""><%= user.firstname %></a></li>
         </ul>
         <a href="/login">
           <img
-            src="./images/pikachu.png"
+            src="/images/pikachu.png"
             width="50px"
             height="50px"
             alt="pikachu"
@@ -134,5 +139,7 @@
     <footer>
       <p>&copy; pokemon by Elite 5</p>
     </footer>
+
+    <script src="/js/fromPokedex.js"></script>
   </body>
 </html>
