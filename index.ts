@@ -4,6 +4,7 @@ import fs from "fs/promises";
 import { MongoClient, ObjectId } from "mongodb";
 // const pokemonName = require("./public/js/fromPokedex.js");
 // import pokemonName from "./public/js/fromPokedex.js";
+// try
 
 const uri: string =
   "mongodb+srv://elite5:elite5password@mycluster.z2rzywu.mongodb.net/?retryWrites=true&w=majority";
