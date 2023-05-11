@@ -11,8 +11,18 @@ interface PeopleProfile {
   lastname: string;
   email: string;
   password: string;
-  yourPokemon: string[];
+  yourPokemon: Pokemon[];
   currentPokemon: string;
+}
+
+//----------------------------
+interface Pokemon {
+  name: string;
+  pokemonNumber: number;
+  nickName: string;
+  wins: number;
+  loss: number;
+  caught: Date;
 }
 
 let peopleProfiles: PeopleProfile[] = [
@@ -21,7 +31,25 @@ let peopleProfiles: PeopleProfile[] = [
     lastname: "joshi1",
     email: "shreejan1212@gmail.com",
     password: "password",
-    yourPokemon: ["pikachu", "charmander"],
+    // yourPokemon: ["pikachu", "charmander"],
+    yourPokemon: [
+      {
+        name: "pikachu",
+        pokemonNumber: 1,
+        nickName: "pi",
+        wins: 2,
+        loss: 3,
+        caught: new Date(),
+      },
+      {
+        name: "charmander",
+        pokemonNumber: 2,
+        nickName: "char",
+        wins: 2,
+        loss: 3,
+        caught: new Date(),
+      },
+    ],
     currentPokemon: "pikachu",
   },
   {
@@ -29,7 +57,16 @@ let peopleProfiles: PeopleProfile[] = [
     lastname: "joshi2",
     email: "shreejanjoshi97@gmail.com",
     password: "password",
-    yourPokemon: ["pikachu"],
+    yourPokemon: [
+      {
+        name: "pikachu",
+        pokemonNumber: 1,
+        nickName: "pi",
+        wins: 2,
+        loss: 3,
+        caught: new Date(),
+      },
+    ],
     currentPokemon: "pikachu",
   },
 ];
@@ -56,7 +93,7 @@ const main = async () => {
     await client.connect();
     console.log("connect to database");
 
-    // await DeleteAll();
+    await DeleteAll();
 
     let peopleProfile = client
       .db("Elite5Pokemon")

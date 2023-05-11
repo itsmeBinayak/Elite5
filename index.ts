@@ -20,13 +20,22 @@ app.use(express.static("public"));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+interface Pokemon {
+  name: string;
+  pokemonNumber: number;
+  nickName: string;
+  wins: number;
+  loss: number;
+  caught: Date;
+}
+
 interface PeopleProfile {
   _id?: ObjectId;
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  yourPokemon: string[];
+  yourPokemon: Pokemon[];
   currentPokemon: string;
 }
 
