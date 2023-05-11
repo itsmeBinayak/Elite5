@@ -18,7 +18,6 @@ interface PeopleProfile {
 //----------------------------
 interface Pokemon {
   name: string;
-  pokemonNumber: number;
   nickName: string;
   wins: number;
   loss: number;
@@ -35,7 +34,6 @@ let peopleProfiles: PeopleProfile[] = [
     yourPokemon: [
       {
         name: "pikachu",
-        pokemonNumber: 1,
         nickName: "pi",
         wins: 2,
         loss: 3,
@@ -43,7 +41,27 @@ let peopleProfiles: PeopleProfile[] = [
       },
       {
         name: "charmander",
-        pokemonNumber: 2,
+        nickName: "char",
+        wins: 2,
+        loss: 3,
+        caught: new Date(),
+      },
+      {
+        name: "nidorina",
+        nickName: "char",
+        wins: 2,
+        loss: 3,
+        caught: new Date(),
+      },
+      {
+        name: "bulbasaur",
+        nickName: "char",
+        wins: 2,
+        loss: 3,
+        caught: new Date(),
+      },
+      {
+        name: "poliwag",
         nickName: "char",
         wins: 2,
         loss: 3,
@@ -60,7 +78,6 @@ let peopleProfiles: PeopleProfile[] = [
     yourPokemon: [
       {
         name: "pikachu",
-        pokemonNumber: 1,
         nickName: "pi",
         wins: 2,
         loss: 3,
@@ -93,7 +110,7 @@ const main = async () => {
     await client.connect();
     console.log("connect to database");
 
-    await DeleteAll();
+    // await DeleteAll();
 
     let peopleProfile = client
       .db("Elite5Pokemon")

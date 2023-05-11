@@ -1,6 +1,7 @@
 import express from "express";
 import ejs from "ejs";
 import fs from "fs/promises";
+import axios from "axios";
 import { MongoClient, ObjectId } from "mongodb";
 // const pokemonName = require("./public/js/fromPokedex.js");
 // import pokemonName from "./public/js/fromPokedex.js";
@@ -22,7 +23,6 @@ app.use(express.urlencoded({ extended: true }));
 
 interface Pokemon {
   name: string;
-  pokemonNumber: number;
   nickName: string;
   wins: number;
   loss: number;
@@ -123,7 +123,15 @@ app.post("/signUp", async (req: any, res: any) => {
       lastname: req.body.lastname,
       email: req.body.email,
       password: req.body.password,
-      yourPokemon: ["pikachu"],
+      yourPokemon: [
+        {
+          name: "pikachu",
+          nickName: "pikachu",
+          wins: 0,
+          loss: 0,
+          caught: new Date(),
+        },
+      ],
       currentPokemon: "pikachu",
     });
 
@@ -208,6 +216,17 @@ app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
 });
 
 // pokedex - pokedex page
+
+interface PokedexPokemon {
+  name: string;
+  id: number;
+  img: string;
+  nickName: string;
+  wins: number;
+  loss: number;
+  caught: Date;
+}
+
 app.get("/user/:id/pokedex", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -222,7 +241,32 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    res.render("pokedex", { user: user });
+    const userPokemons = user?.yourPokemon;
+    const pokemonsData: PokedexPokemon[] = [];
+
+    if (userPokemons != undefined) {
+      for (let userpokemon of userPokemons) {
+        let pokeResponse = axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${userpokemon.name}`
+        );
+        const pokemon: PokedexPokemon = {
+          name: userpokemon.name,
+          id: (await pokeResponse).data.id,
+          img: (await pokeResponse).data.sprites.front_default,
+          nickName: userpokemon.nickName,
+          wins: userpokemon.wins,
+          loss: userpokemon.loss,
+          caught: userpokemon.caught,
+        };
+        pokemonsData.push(pokemon);
+      }
+    }
+
+    res.render("pokedex", {
+      user: user,
+      pokemons: user?.yourPokemon,
+      pokemonsData: pokemonsData,
+    });
   } catch (e) {
     console.error(e);
   } finally {
