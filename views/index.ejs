@@ -19,11 +19,19 @@
         />
         <ul>
           <li><a href="/user/<%= user._id %>">Home</a></li>
-          <li><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
+          <li>
+            <a href="/user/<%= user._id %>/pokemonComparison"
+              >Pokemon comparison</a
+            >
+          </li>
           <li><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
           <li><a href="/user/<%= user._id %>/catch">Catch</a></li>
           <li><a href="/user/<%= user._id %>">Battle</a></li>
-          <li><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+          <li>
+            <a href="/user/<%= user._id %>/whoIsThatPokemon"
+              >Who is that pokemon?</a
+            >
+          </li>
           <li><a href=""><%= user.firstname %></a></li>
         </ul>
         <a href="/login"

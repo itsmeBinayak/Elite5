@@ -160,12 +160,15 @@ app.get("/user/:id", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    // if (!user) {
-    //   res.render("error");
-    //   return;
-    // }
+    let currentPokemon = user?.currentPokemon;
 
-    res.render("index", { user: user });
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    res.render("index", { user: user, currentPokemonImg: currentPokemonImg });
   } catch (e) {
     console.error(e);
   } finally {
@@ -207,7 +210,18 @@ app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    res.render("vergelijken", { user: user });
+    let currentPokemon = user?.currentPokemon;
+
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    res.render("vergelijken", {
+      user: user,
+      currentPokemonImg: currentPokemonImg,
+    });
   } catch (e) {
     console.error(e);
   } finally {
@@ -241,6 +255,16 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
+    let currentPokemon = user?.currentPokemon;
+
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    // ------------------------------------------------------------
+
     const userPokemons = user?.yourPokemon;
     const pokemonsData: PokedexPokemon[] = [];
 
@@ -266,6 +290,7 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
       user: user,
       pokemons: user?.yourPokemon,
       pokemonsData: pokemonsData,
+      currentPokemonImg: currentPokemonImg,
     });
   } catch (e) {
     console.error(e);
@@ -287,6 +312,16 @@ app.post("/user/:id/pokedex", async (req: any, res: any) => {
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: id,
     });
+
+    let currentPokemon = user?.currentPokemon;
+
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    //------------------------------------
 
     const userPokemons = user?.yourPokemon;
     const pokemonsData: PokedexPokemon[] = [];
@@ -326,6 +361,7 @@ app.post("/user/:id/pokedex", async (req: any, res: any) => {
       user: user,
       pokemons: user?.yourPokemon,
       pokemonsData: pokemonsData,
+      currentPokemonImg: currentPokemonImg,
     });
   } catch (e) {
     console.error(e);
@@ -369,6 +405,16 @@ app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: new ObjectId(id),
     });
+
+    let currentPokemon = user?.currentPokemon;
+
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    //------------------------------------
 
     //finding pokemon from url
     const userPokemons = user?.yourPokemon;
@@ -443,6 +489,7 @@ app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
       specialAttack: specialAttack,
       specialDefense: specialDefense,
       speed: speed,
+      currentPokemonImg: currentPokemonImg,
     });
   } catch (e) {
     console.error(e);
@@ -465,6 +512,16 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: id,
     });
+
+    let currentPokemon = user?.currentPokemon;
+
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    //------------------------------------
 
     //finding pokemon from url
     const userPokemons = user?.yourPokemon;
@@ -550,6 +607,7 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
       specialAttack: specialAttack,
       specialDefense: specialDefense,
       speed: speed,
+      currentPokemonImg: currentPokemonImg,
     });
 
     // res.render("huidigePokemon");
@@ -577,7 +635,17 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    res.render("catch", { user: user });
+    let currentPokemon = user?.currentPokemon;
+
+    let pokeResponseImg = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
+    );
+
+    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+
+    //------------------------------------
+
+    res.render("catch", { user: user, currentPokemonImg: currentPokemonImg });
   } catch (e) {
     console.error(e);
   } finally {
