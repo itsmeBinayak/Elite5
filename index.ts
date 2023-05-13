@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import ejs from "ejs";
 import fs from "fs/promises";
 import axios from "axios";
@@ -274,13 +274,94 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
   }
 });
 
+app.post("/user/:id/pokedex", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id = new ObjectId(req.params.id);
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: id,
+    });
+
+    const userPokemons = user?.yourPokemon;
+    const pokemonsData: PokedexPokemon[] = [];
+
+    if (userPokemons != undefined) {
+      for (let userpokemon of userPokemons) {
+        let pokeResponse = axios.get(
+          `https://pokeapi.co/api/v2/pokemon/${userpokemon.name}`
+        );
+        const pokemon: PokedexPokemon = {
+          name: userpokemon.name,
+          id: (await pokeResponse).data.id,
+          img: (await pokeResponse).data.sprites.front_default,
+          nickName: userpokemon.nickName,
+          wins: userpokemon.wins,
+          loss: userpokemon.loss,
+          caught: userpokemon.caught,
+        };
+        pokemonsData.push(pokemon);
+      }
+    }
+
+    if (user != undefined) {
+      user.currentPokemon = req.body.currentPokemonName;
+    }
+
+    await peopleProfileCollection.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: user,
+      }
+    );
+
+    res.render("pokedex", {
+      user: user,
+      pokemons: user?.yourPokemon,
+      pokemonsData: pokemonsData,
+    });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+});
+
 // currentPokemon - pokedex page
-app.get("/user/:id/currentPokemon", async (req: any, res: any) => {
+interface PokemonSpecies {
+  name: string;
+  url: string;
+}
+
+interface PokemonEvolution {
+  species: PokemonSpecies;
+  evolves_to: PokemonEvolution[];
+}
+
+interface EvolutionChain {
+  id: number;
+  chain: PokemonEvolution;
+}
+
+interface PokemonInfo {
+  name: string;
+  img: string;
+}
+
+app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
   try {
     await client.connect();
     console.log("connected to database");
 
     let id: number = req.params.id;
+    let pokemonName: string = req.params.pokemonName;
 
     let peopleProfileCollection = client
       .db("Elite5Pokemon")
@@ -289,11 +370,195 @@ app.get("/user/:id/currentPokemon", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    res.render("huidigePokemon", { user: user });
+    //finding pokemon from url
+    const userPokemons = user?.yourPokemon;
+    const findPokemon = userPokemons?.find((p) => p.name === pokemonName);
+
+    //looking evolution
+    let pokeResponse = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+    );
+
+    const speciesUrl: string = (await pokeResponse).data.species.url;
+
+    let pokemonSpeciesUrl = axios.get(speciesUrl);
+    const evolutionChainUrl: string = (await pokemonSpeciesUrl).data
+      .evolution_chain.url;
+
+    let pokemonEvolutionChainUrl = axios.get(evolutionChainUrl);
+    const evolutionChain = (await pokemonEvolutionChainUrl).data.chain;
+
+    const pokemonInfos: PokemonInfo[] = [];
+
+    const parseEvolutionChain = async (evolution: PokemonEvolution) => {
+      const name = evolution.species.name;
+      // let pokeImgResponse = axios.get(
+      //   `https://pokeapi.co/api/v2/pokemon/${name}`
+      // );
+      // const img = (await pokeImgResponse).data.sprites.front_default;
+      // console.log(img);
+
+      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+        evolution.species.url.split("/")[6]
+      }.png`;
+
+      pokemonInfos.push({ name, img });
+
+      evolution.evolves_to.forEach((evolution) => {
+        parseEvolutionChain(evolution);
+      });
+    };
+
+    parseEvolutionChain(evolutionChain);
+
+    const stats = (await pokeResponse).data.stats;
+    let hp = stats.find((stat: any) => stat.stat.name == "hp").base_stat;
+    let attack = stats.find(
+      (stat: any) => stat.stat.name == "attack"
+    ).base_stat;
+    let defense = stats.find(
+      (stat: any) => stat.stat.name == "defense"
+    ).base_stat;
+    let specialAttack = stats.find(
+      (stat: any) => stat.stat.name == "special-attack"
+    ).base_stat;
+    let specialDefense = stats.find(
+      (stat: any) => stat.stat.name == "special-defense"
+    ).base_stat;
+    let speed = stats.find((stat: any) => stat.stat.name == "speed").base_stat;
+
+    res.render("huidigePokemon", {
+      user: user,
+      name: findPokemon?.name,
+      id: (await pokeResponse).data.id,
+      img: (await pokeResponse).data.sprites.front_default,
+      nickName: findPokemon?.nickName,
+      wins: findPokemon?.wins,
+      loss: findPokemon?.loss,
+      caught: findPokemon?.caught,
+      pokemonInfos: pokemonInfos,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+    });
   } catch (e) {
     console.error(e);
   } finally {
     await client.close();
+  }
+});
+
+app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
+  try {
+    await client.connect();
+    console.log("connected to database");
+
+    let id = new ObjectId(req.params.id);
+    let pokemonName: string = req.params.pokemonName;
+
+    let peopleProfileCollection = client
+      .db("Elite5Pokemon")
+      .collection("PeopleProfiles");
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: id,
+    });
+
+    //finding pokemon from url
+    const userPokemons = user?.yourPokemon;
+    const findPokemon = userPokemons?.find((p) => p.name === pokemonName);
+
+    // findPokemon?.name = req.body.nickname;
+
+    //looking evolution
+    let pokeResponse = axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
+    );
+
+    const speciesUrl: string = (await pokeResponse).data.species.url;
+
+    let pokemonSpeciesUrl = axios.get(speciesUrl);
+    const evolutionChainUrl: string = (await pokemonSpeciesUrl).data
+      .evolution_chain.url;
+
+    let pokemonEvolutionChainUrl = axios.get(evolutionChainUrl);
+    const evolutionChain = (await pokemonEvolutionChainUrl).data.chain;
+
+    const pokemonInfos: PokemonInfo[] = [];
+
+    const parseEvolutionChain = async (evolution: PokemonEvolution) => {
+      const name = evolution.species.name;
+      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+        evolution.species.url.split("/")[6]
+      }.png`;
+
+      pokemonInfos.push({ name, img });
+
+      evolution.evolves_to.forEach((evolution) => {
+        parseEvolutionChain(evolution);
+      });
+    };
+
+    parseEvolutionChain(evolutionChain);
+
+    const stats = (await pokeResponse).data.stats;
+    let hp = stats.find((stat: any) => stat.stat.name == "hp").base_stat;
+    let attack = stats.find(
+      (stat: any) => stat.stat.name == "attack"
+    ).base_stat;
+    let defense = stats.find(
+      (stat: any) => stat.stat.name == "defense"
+    ).base_stat;
+    let specialAttack = stats.find(
+      (stat: any) => stat.stat.name == "special-attack"
+    ).base_stat;
+    let specialDefense = stats.find(
+      (stat: any) => stat.stat.name == "special-defense"
+    ).base_stat;
+    let speed = stats.find((stat: any) => stat.stat.name == "speed").base_stat;
+
+    // ----------------------------------------------------
+
+    if (findPokemon != undefined) {
+      findPokemon.nickName = req.body.nickname;
+    }
+
+    await peopleProfileCollection.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: user,
+      }
+    );
+
+    res.render("huidigePokemon", {
+      user: user,
+      name: findPokemon?.name,
+      id: (await pokeResponse).data.id,
+      img: (await pokeResponse).data.sprites.front_default,
+      nickName: findPokemon?.nickName,
+      wins: findPokemon?.wins,
+      loss: findPokemon?.loss,
+      caught: findPokemon?.caught,
+      pokemonInfos: pokemonInfos,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+    });
+
+    // res.render("huidigePokemon");
+
+    res.render("");
+  } catch (e) {
+    console.error(e);
+  } finally {
+    client.close();
   }
 });
 

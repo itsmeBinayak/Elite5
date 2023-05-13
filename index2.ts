@@ -71,10 +71,10 @@ let peopleProfiles: PeopleProfile[] = [
     currentPokemon: "pikachu",
   },
   {
-    firstname: "shreejan2",
-    lastname: "joshi2",
-    email: "shreejanjoshi97@gmail.com",
-    password: "password",
+    firstname: "binayak",
+    lastname: "shrestha",
+    email: "binayakshrestha6@gmail.com",
+    password: "pass",
     yourPokemon: [
       {
         name: "pikachu",

@@ -53,9 +53,24 @@
         <% pokemonsData.sort((a,b) => a.id - b.id); for(let pokemon of
         pokemonsData){%>
         <article class="card">
-          <img src="<%= pokemon.img %>" alt="Pokemon 1" />
-          <h3>#<%= pokemon.id %></h3>
-          <p><%= pokemon.name %></p>
+          <a href="/user/<%= user._id %>/pokedex/<%= pokemon.name%>">
+            <img src="<%= pokemon.img %>" alt="Pokemon 1" />
+            <h3>#<%= pokemon.id %></h3>
+            <p><%= pokemon.name %></p>
+          </a>
+          <form action="/user/<%= user._id %>/pokedex/" method="post">
+            <input
+              type="hidden"
+              name="currentPokemonName"
+              value="<%= pokemon.name %>"
+            />
+            <input
+              type="submit"
+              value="Choose this pokemon"
+              class="update"
+              class="update"
+            />
+          </form>
         </article>
         <%}%>
       </section>
