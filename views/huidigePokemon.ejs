@@ -10,27 +10,33 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav class="navbar">
         <img
-          src="./images/pokeball.png"
+          src="/images/pokeball.png"
           width="50px"
           height="50px"
           alt="pokeball"
         />
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/pokemonComparison">Pokemon vergelijken</a></li>
-          <li><a href="/pokedex">Pokedex</a></li>
-          <li><a href="/catch">Catch</a></li>
-          <li><a href="/">Battle</a></li>
-          <li><a href="/whoIsThatPokemon">Who is that pokemon?</a></li>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item"><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
+          <li class="nav-item"><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
+          <li class="nav-item"><a href="/user/<%= user._id %>/catch">Catch</a></li>
+          <li class="nav-item"><a href="/user/<%= user._id %>">Battle</a></li>
+          <li class="nav-item"><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+          <li class="nav-item"><a href=""><%= user.firstname %></a></li>
+          <li class="nav-item"><a href="/login"><img
+              src="/images/pikachu.png"
+              width="30px"
+              height="30px"
+              alt="pokemon"/></a></li>
         </ul>
-        <img
-          src="./images/pikachu.png"
-          width="50px"
-          height="50px"
-          alt="pikachu"
-        />
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        
       </nav>
     </header>
     <main>
