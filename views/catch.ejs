@@ -11,6 +11,7 @@
 </head>
 <body>
     <header>
+<<<<<<< HEAD
         <nav>
             <img src="/images/pokeball.png" width="50px" height="50px" alt="pokeball">
             <ul>
@@ -23,8 +24,37 @@
                 <li><a href=""><%= user.firstname %></a></li>de
             </ul>
             <a href="/login"><img src="/images/pikachu.png" width="50px" height="50px" alt="pikachu"></a>
+=======
+        <nav class="navbar">
+          <img
+            src="/images/pokeball.png"
+            width="50px"
+            height="50px"
+            alt="pokeball"
+          />
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+            <li class="nav-item"><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
+            <li class="nav-item"><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
+            <li class="nav-item"><a href="/user/<%= user._id %>/catch">Catch</a></li>
+            <li class="nav-item"><a href="/user/<%= user._id %>">Battle</a></li>
+            <li class="nav-item"><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+            <li class="nav-item"><a href=""><%= user.firstname %></a></li>
+            <li class="nav-item"><a href="/login"><img
+                src="/images/pikachu.png"
+                width="30px"
+                height="30px"
+                alt="pokemon"/></a></li>
+          </ul>
+          <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+          
+>>>>>>> 137fd79a49e96dffabbede9687303cfcdd20fcfa
         </nav>
-    </header>
+      </header>
     <main>
         <div class="flex-container">
             <div id="pokemon-container1" class="pokemon-container">
