@@ -40,21 +40,21 @@ let peopleProfiles: PeopleProfile[] = [
         caught: new Date(),
       },
       {
-        name: "charmander",
+        name: "burmy",
         nickName: "char",
         wins: 2,
         loss: 3,
         caught: new Date(),
       },
       {
-        name: "nidorina",
+        name: "eevee",
         nickName: "char",
         wins: 2,
         loss: 3,
         caught: new Date(),
       },
       {
-        name: "bulbasaur",
+        name: "sneasel",
         nickName: "char",
         wins: 2,
         loss: 3,
@@ -110,7 +110,7 @@ const main = async () => {
     await client.connect();
     console.log("connect to database");
 
-    // await DeleteAll();
+    //  await DeleteAll();
 
     let peopleProfile = client
       .db("Elite5Pokemon")

@@ -17,52 +17,41 @@
           height="50px"
           alt="pokeball"
         />
-<<<<<<< HEAD
-        <ul>
-          <li><a href="/user/<%= user._id %>">Home</a></li>
-          <li>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item">
             <a href="/user/<%= user._id %>/pokemonComparison"
               >Pokemon comparison</a
             >
           </li>
-          <li><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
-          <li><a href="/user/<%= user._id %>/catch">Catch</a></li>
-          <li><a href=""><%= user.firstname %></a></li>
-        </ul>
-        <img
-          src="/images/pikachu.png"
-          width="50px"
-          height="50px"
-          alt="pikachu"
-        />
-=======
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/catch">Catch</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>">Battle</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/pokedex">Pokedex</a>
+          </li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/catch">Catch</a>
+          </li>
           <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-          <li class="nav-item"><a href="/login"><img
-              src="/images/pikachu.png"
-              width="30px"
-              height="30px"
-              alt="pokemon"/></a></li>
+          <li class="nav-item">
+            <a href="/login"
+              ><img
+                src="/images/pikachu.png"
+                width="30px"
+                height="30px"
+                alt="pokemon"
+            /></a>
+          </li>
         </ul>
         <div class="hamburger">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-        
->>>>>>> 137fd79a49e96dffabbede9687303cfcdd20fcfa
       </nav>
     </header>
     <main>
       <section class="hp_Container">
         <article class="hp_item">
-          <h3 class="name">#<%= id %> <%= name %></h3>
+          <h1 class="name">#<%= id %> <%= name %></h1>
           <div class="img">
             <img src="<%= img %>" class="hp_bigImg" />
           </div>
@@ -84,11 +73,11 @@
           </form>
         </article>
         <article class="hp_item infoPokemon">
-          <h3>Base stats</h3>
+          <h1 class="h1Stats">Base stats</h1>
           <table>
             <tr>
-              <th>Stat</th>
-              <th>Value</th>
+              <th class="statTable">Stat</th>
+              <th class="valueTable">Value</th>
             </tr>
             <tr>
               <td>HP</td>
@@ -111,8 +100,8 @@
               <td><%= specialDefense %></td>
             </tr>
             <tr>
-              <td>Speed</td>
-              <td><%= speed %></td>
+              <td class="bottomLeftTable">Speed</td>
+              <td class="bottomRightTable"><%= speed %></td>
             </tr>
           </table>
         </article>
@@ -120,7 +109,7 @@
       <section class="hp_Container">
         <% for(let pokemonInfo of pokemonInfos){%>
         <article class="hp_item">
-          <h4><%= pokemonInfo.name %></h4>
+          <h3><%= pokemonInfo.name %></h3>
           <img src="<%= pokemonInfo.img %>" class="hp_smallImg" />
         </article>
         <%}%>
