@@ -22,14 +22,17 @@
             <li class="nav-item"><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
             <li class="nav-item"><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
             <li class="nav-item"><a href="/user/<%= user._id %>/catch">Catch</a></li>
-            <li class="nav-item"><a href="/user/<%= user._id %>">Battle</a></li>
-            <li class="nav-item"><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
             <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-            <li class="nav-item"><a href="/login"><img
-                src="/images/pikachu.png"
-                width="30px"
-                height="30px"
-                alt="pokemon"/></a></li>
+            
+            <li class="nav-item">
+            <a href="/login"
+              ><img
+                src="<%= currentPokemonImg %>"
+                width="80px"
+                height="80px"
+                alt="pokemon"
+            /></a>
+          </li>
           </ul>
           <div class="hamburger">
             <span class="bar"></span>
