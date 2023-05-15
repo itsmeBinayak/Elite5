@@ -1,3 +1,21 @@
+h1 {
+  color: yellowgreen;
+}
+
+h3 {
+  color: yellowgreen;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.h1Stats {
+  color: white;
+  padding-top: 10px;
+}
+
+form {
+  color: white;
+}
+
 .hp_Container {
   display: flex;
   flex-direction: row wrap;
@@ -95,6 +113,22 @@ h4 {
 
 table {
   width: 100%;
+}
+
+.statTable {
+  border-top-left-radius: 20px;
+}
+
+.valueTable {
+  border-top-right-radius: 20px;
+}
+
+.bottomLeftTable {
+  border-bottom-left-radius: 20px;
+}
+
+.bottomRightTable {
+  border-bottom-right-radius: 20px;
 }
 
 th,

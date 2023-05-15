@@ -50,6 +50,13 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 24px 0 24px;
+  letter-spacing: 5px;
+}
+
 .navbar {
   min-height: 60px;
   display: flex;
@@ -164,7 +171,7 @@ footer {
   .nav-menu {
     position: fixed;
     left: -100%;
-    top: 70px;
+    top: 60px;
     gap: 0;
     flex-direction: column;
     background-color: red;

@@ -69,7 +69,7 @@ a {
 }
 
 @media all and (max-width: 768px) {
-  #projects {
+  .projects {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
