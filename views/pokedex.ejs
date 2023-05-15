@@ -5,8 +5,8 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="/css/pokedex.css" />
       <link rel="stylesheet" href="/css/style.css" />
+      <link rel="stylesheet" href="/css/pokedex.css" />
       <title>Pokemon</title>
     </head>
   </head>
@@ -20,45 +20,35 @@
           height="50px"
           alt="pokeball"
         />
-<<<<<<< HEAD
-        <ul>
-          <li><a href="/user/<%= user._id %>">Home</a></li>
-          <li>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item">
             <a href="/user/<%= user._id %>/pokemonComparison"
               >Pokemon comparison</a
             >
           </li>
-          <li><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
-          <li><a href="/user/<%= user._id %>/catch">Catch</a></li>
-          <li><a href="/user/<%= user._id %>">Battle</a></li>
-          <li>
-            <a href="/user/<%= user._id %>/whoIsThatPokemon"
-              >Who is that pokemon?</a
-            >
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/pokedex">Pokedex</a>
           </li>
-          <li><a href=""><%= user.firstname %></a></li>
-=======
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/catch">Catch</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>">Battle</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/catch">Catch</a>
+          </li>
           <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-          <li class="nav-item"><a href="/login"><img
-              src="/images/pikachu.png"
-              width="30px"
-              height="30px"
-              alt="pokemon"/></a></li>
->>>>>>> 137fd79a49e96dffabbede9687303cfcdd20fcfa
+          <li class="nav-item">
+            <a href="/login"
+              ><img
+                src="/images/pikachu.png"
+                width="30px"
+                height="30px"
+                alt="pokemon"
+            /></a>
+          </li>
         </ul>
         <div class="hamburger">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-        
       </nav>
     </header>
 
@@ -92,7 +82,6 @@
     <footer>
       <p>&copy; pokemon by Elite 5</p>
     </footer>
-
-    <script src="/js/fromPokedex.js"></script>
   </body>
+  <script src="/js/fromPokedex.js"></script>
 </html>

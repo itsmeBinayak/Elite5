@@ -92,9 +92,6 @@ select {
   display: inline-block;
   margin-top: 5px;
 }
-p {
-  font-size: x-large;
-}
 
 .load-more-btn {
   display: block;

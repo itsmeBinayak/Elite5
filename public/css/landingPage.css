@@ -25,6 +25,7 @@
 
 .project-item h2 {
   color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -32,6 +33,20 @@
   padding: 0 0 1rem 1.5rem;
   transform: translateY(-5rem);
   margin-bottom: -5rem;
+}
+
+h3 {
+  color: red;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.errorpage {
+  height: 100vh;
+}
+
+.goback {
+  color: blue;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 a {
