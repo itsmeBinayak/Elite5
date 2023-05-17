@@ -14,6 +14,7 @@ const getPokemon = (e, pokemonNumber, defaultPokemon = "pikachu") => {
       
       //shows name api
       n = data.name[0].toUpperCase() + data.name.slice(1);
+      nameElement.textContent = n;
       
       //show immage api
       img.src = data.sprites.other["official-artwork"].front_default;
@@ -42,6 +43,16 @@ const getPokemon = (e, pokemonNumber, defaultPokemon = "pikachu") => {
 
  
 };
+
+
+const getPokemonByName= (e,pokemonNumber,defaultPokemon = "pikachu")=>{
+   const nameInput = lowerCaseName(document.querySelector(`#pokemonName${pokemonNumber}`).value);
+  const name = nameInput ? lowerCaseName(nameInput) : lowerCaseName(defaultPokemon);
+  const container = document.querySelector(`#pokemon-container${pokemonNumber}`);
+  const img = container.querySelector(".img img");
+  const statsList = document.querySelector(`#stats${pokemonNumber}`);
+  const nameElement = container.querySelector(".name");
+}
 //vergelijkt de beide stats en geeft ze de kleur 
 const compareStats = (statValue1, statValue2, listItem, skillLevel1, skillLevel2) => {
   
@@ -79,3 +90,17 @@ window.onload = () => {
     getPokemon(null, 1,);
     getPokemon(null, 2, defaultPokemon2);
   };
+
+
+const getRandomPokemon = () => {
+    const randomId = Math.floor(Math.random() * 898) + 1; 
+    fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`)
+      .then(response => response.json())
+      .then(data => {
+        n = data.name[0].toUpperCase() + data.name.slice(1);
+        nameElement.textContent = n;
+      })
+      .catch(err => console.log("Pokemon not found", err));
+  }
+
+

@@ -2,6 +2,8 @@ import express from "express";
 import ejs from "ejs";
 import fs from "fs/promises";
 import { MongoClient, ObjectId } from "mongodb";
+import { getRandomPokemon } from "./RandompokeAPI";
+import { isPokemonCaught } from "./isPokemonCaught";
 // const pokemonName = require("./public/js/fromPokedex.js");
 // import pokemonName from "./public/js/fromPokedex.js";
 
@@ -11,6 +13,9 @@ const uri: string =
 const client = new MongoClient(uri);
 
 const app = express();
+
+
+
 
 app.set("port", 3000);
 app.set("view engine", "ejs");
@@ -251,14 +256,18 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
 
     let id: number = req.params.id;
 
+    let pokemon = await getRandomPokemon();
+    let PokemonCaught = await isPokemonCaught(pokemon.name,id);
+
     let peopleProfileCollection = client
       .db("Elite5Pokemon")
       .collection("PeopleProfiles");
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: new ObjectId(id),
     });
+    
 
-    res.render("catch", { user: user });
+    res.render("catch",{ user: user, pokemon, PokemonCaught });
   } catch (e) {
     console.error(e);
   } finally {
@@ -294,3 +303,4 @@ app.listen(app.get("port"), async () => {
   // await readAccounts();
   console.log("Account read!");
 });
+
