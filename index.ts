@@ -5,27 +5,29 @@ import axios from "axios";
 import { MongoClient, ObjectId } from "mongodb";
 import { getRandomPokemon } from "./RandompokeAPI";
 import { isPokemonCaught } from "./isPokemonCaught";
-// const pokemonName = require("./public/js/fromPokedex.js");
-// import pokemonName from "./public/js/fromPokedex.js";
-// try
 
+// database url
 const uri: string =
   "mongodb+srv://elite5:elite5password@mycluster.z2rzywu.mongodb.net/?retryWrites=true&w=majority";
 
+// connect url client
 const client = new MongoClient(uri);
 
+// app
 const app = express();
 
-
-
-
+// set
 app.set("port", 3000);
 app.set("view engine", "ejs");
 
+// use
 app.use(express.static("public"));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// interface
+
+// databese: yourPokemon
 interface Pokemon {
   name: string;
   nickName: string;
@@ -34,6 +36,7 @@ interface Pokemon {
   caught: Date;
 }
 
+// database: people profile
 interface PeopleProfile {
   _id?: ObjectId;
   firstname: string;
@@ -44,21 +47,54 @@ interface PeopleProfile {
   currentPokemon: string;
 }
 
-// projects - landing page
+// for pokemon in pokedex and current pokemon page: extra id and img
+interface PokedexPokemon {
+  name: string;
+  id: number;
+  img: string;
+  nickName: string;
+  wins: number;
+  loss: number;
+  caught: Date;
+}
+
+// interfaces for pokemon evolution
+interface PokemonSpecies {
+  name: string;
+  url: string;
+}
+
+interface PokemonEvolution {
+  species: PokemonSpecies;
+  evolves_to: PokemonEvolution[];
+}
+
+interface EvolutionChain {
+  id: number;
+  chain: PokemonEvolution;
+}
+
+interface PokemonInfo {
+  name: string;
+  img: string;
+}
+
+// landing page: get
 app.get("/", (req: any, res: any) => {
   res.render("landingPage");
 });
 
-// projectsError - projects Error page
+// projects Error page: get
 app.get("/projectsError", (req: any, res: any) => {
   res.render("projectsError");
 });
 
-// login - login page
+// login page: get
 app.get("/login", (req: any, res: any) => {
   res.render("login");
 });
 
+// login page: post
 app.post("/login", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -74,14 +110,6 @@ app.post("/login", async (req: any, res: any) => {
       email: email,
     });
 
-    // res.render("login", {
-    //   login: loginUser,
-    //   // email: loginUser?.email,
-    //   // password: loginUser?.password,
-    //   typedEmail: email,
-    //   typedPassword: password,
-    // });
-
     if (password == loginUser?.password) {
       res.redirect(`/user/${loginUser?._id}`);
     } else {
@@ -94,27 +122,13 @@ app.post("/login", async (req: any, res: any) => {
   }
 });
 
-// signUp - signup page
+// signUp page: get
 app.get("/signUp", (req: any, res: any) => {
   res.render("signUp");
 });
 
+// signUp page: post
 app.post("/signUp", async (req: any, res: any) => {
-  // accounts.push({
-  //   firstname: req.body.firstname,
-  //   lastname: req.body.lastname,
-  //   email: req.body.email,
-  //   password: req.body.password,
-  // });
-
-  // await writeAccounts();
-
-  // res.render("accountMade", {
-  //   firstname: req.body.firstname,
-  //   lastname: req.body.lastname,
-  //   email: req.body.email,
-  //   password: req.body.password,
-  // });
   try {
     await client.connect();
     console.log("connected to database");
@@ -150,7 +164,7 @@ app.post("/signUp", async (req: any, res: any) => {
   }
 });
 
-// index - home page
+// home page: get
 app.get("/user/:id", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -206,26 +220,7 @@ app.get("/user/:id", async (req: any, res: any) => {
   }
 });
 
-// interface Account {
-//   firstname: string;
-//   lastname: string;
-//   email: string;
-//   password: string;
-// }
-
-// let accounts: Account[] = [];
-
-// const readAccounts = async () => {
-//   const data = JSON.parse(await fs.readFile("./accounts.json", "utf-8"));
-
-//   accounts = data;
-// };
-
-// const writeAccounts = async () => {
-//   await fs.writeFile("./accounts.json", JSON.stringify(accounts));
-// };
-
-// pokemonComparison - vergelijken
+// pokemonComparison page: get
 app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -259,18 +254,7 @@ app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
   }
 });
 
-// pokedex - pokedex page
-
-interface PokedexPokemon {
-  name: string;
-  id: number;
-  img: string;
-  nickName: string;
-  wins: number;
-  loss: number;
-  caught: Date;
-}
-
+// pokedex page: get
 app.get("/user/:id/pokedex", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -329,6 +313,7 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
   }
 });
 
+// pokedex page: post
 app.post("/user/:id/pokedex", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -400,27 +385,7 @@ app.post("/user/:id/pokedex", async (req: any, res: any) => {
   }
 });
 
-// currentPokemon - pokedex page
-interface PokemonSpecies {
-  name: string;
-  url: string;
-}
-
-interface PokemonEvolution {
-  species: PokemonSpecies;
-  evolves_to: PokemonEvolution[];
-}
-
-interface EvolutionChain {
-  id: number;
-  chain: PokemonEvolution;
-}
-
-interface PokemonInfo {
-  name: string;
-  img: string;
-}
-
+// currentPokemon page: get
 app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -528,6 +493,7 @@ app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
   }
 });
 
+// currentPokemon page: post
 app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -650,7 +616,7 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
   }
 });
 
-// catch - catch page
+// catch page: get
 app.get("/user/:id/catch", async (req: any, res: any) => {
   try {
     await client.connect();
@@ -689,28 +655,29 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
 });
 
 // whoIsThatPokemon - whoIsThatPokemon page
-app.get("/user/:id/whoIsThatPokemon", async (req: any, res: any) => {
-  try {
-    await client.connect();
-    console.log("connected to database");
+// app.get("/user/:id/whoIsThatPokemon", async (req: any, res: any) => {
+//   try {
+//     await client.connect();
+//     console.log("connected to database");
 
-    let id: number = req.params.id;
+//     let id: number = req.params.id;
 
-    let peopleProfileCollection = client
-      .db("Elite5Pokemon")
-      .collection("PeopleProfiles");
-    let user = await peopleProfileCollection.findOne<PeopleProfile>({
-      _id: new ObjectId(id),
-    });
+//     let peopleProfileCollection = client
+//       .db("Elite5Pokemon")
+//       .collection("PeopleProfiles");
+//     let user = await peopleProfileCollection.findOne<PeopleProfile>({
+//       _id: new ObjectId(id),
+//     });
 
-    res.render("whoIsThatPokemon", { user: user });
-  } catch (e) {
-    console.error(e);
-  } finally {
-    await client.close();
-  }
-});
+//     res.render("whoIsThatPokemon", { user: user });
+//   } catch (e) {
+//     console.error(e);
+//   } finally {
+//     await client.close();
+//   }
+// });
 
+// listen to localhost
 app.listen(app.get("port"), async () => {
   console.log(`Web application started at http://localhost:${app.get("port")}`);
   // await readAccounts();
