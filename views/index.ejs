@@ -49,58 +49,92 @@
       </nav>
     </header>
     <main>
-      <h1 style="text-align: center">Welcome to the world of pokémon</h1>
+      <div class="sectionAsh">
+        <div class="ash">
+          <article class="ashTextBox">
+            <h1 class="ashTitle">Welcome to the world of pokémon</h1>
+            <p class="ashDescription">
+              So, are you ready to dive into a world where dreams become
+              reality? Grab your Poké Balls, strap on your backpack, and prepare
+              for an extraordinary adventure that will leave an indelible mark
+              on your life. Welcome to the captivating world of Pokémon!
+            </p>
+          </article>
+          <article class="hobbyImgBox">
+            <img
+              src="/images/ash.png"
+              class="ashImg"
+              alt="jongens die basketbal spelen in het park"
+            />
+          </article>
+        </div>
+      </div>
+      <h2 style="text-align: center" class="titleCurr">Your current pokemon</h2>
+
       <div class="container">
-        <figure>
-          <img
-            src="/images/pika.png"
-            width="500px"
-            height="500px"
-            alt="pikachu"
-          />
-        </figure>
+        <article class="card currCard">
+          <a href="/user/<%= user._id %>/pokedex/<%= user.currentPokemon %>">
+            <img
+              src="<%= currentPokemonImg %>"
+              alt="<%= user.currentPokemon %> image"
+            />
+            <p><%= user.currentPokemon %></p>
+          </a>
+        </article>
         <section class="pokemon-container">
           <h3>Base stats</h3>
           <div id="stats1">
             <div class="skill_box">
               hp:
-              <p class="stat_value">35</p>
+              <p class="stat_value"><%= hp %></p>
               <div class="skill">
-                <div class="skill_level" data-percentage="35"></div>
+                <div class="skill_level" data-percentage="<%= hp %>"></div>
               </div>
               <div class="skill_box">
                 attack:
-                <p class="stat_value">55</p>
+                <p class="stat_value"><%= attack %></p>
                 <div class="skill">
-                  <div class="skill_level" data-percentage="55"></div>
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= attack %>"
+                  ></div>
                 </div>
               </div>
               <div class="skill_box">
                 defense:
-                <p class="stat_value">40</p>
+                <p class="stat_value"><%= defense %></p>
                 <div class="skill">
-                  <div class="skill_level" data-percentage="40"></div>
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= defense %>"
+                  ></div>
                 </div>
               </div>
               <div class="skill_box">
                 special-attack:
-                <p class="stat_value">50</p>
+                <p class="stat_value"><%= specialAttack %></p>
                 <div class="skill">
-                  <div class="skill_level" data-percentage="50"></div>
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= specialAttack %>"
+                  ></div>
                 </div>
               </div>
               <div class="skill_box">
                 special-defense:
-                <p class="stat_value">50</p>
+                <p class="stat_value"><%= specialDefense %></p>
                 <div class="skill">
-                  <div class="skill_level" data-percentage="50"></div>
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= specialDefense %>"
+                  ></div>
                 </div>
               </div>
               <div class="skill_box">
                 speed:
-                <p class="stat_value">90</p>
+                <p class="stat_value"><%= speed %></p>
                 <div class="skill">
-                  <div class="skill_level" data-percentage="90"></div>
+                  <div class="skill_level" data-percentage="<%= speed %>"></div>
                 </div>
               </div>
             </div>

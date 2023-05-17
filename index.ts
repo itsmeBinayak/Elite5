@@ -162,13 +162,38 @@ app.get("/user/:id", async (req: any, res: any) => {
 
     let currentPokemon = user?.currentPokemon;
 
-    let pokeResponseImg = axios.get(
+    let pokeResponse = axios.get(
       `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
     );
 
-    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+    let currentPokemonImg = (await pokeResponse).data.sprites.front_default;
 
-    res.render("index", { user: user, currentPokemonImg: currentPokemonImg });
+    const stats = (await pokeResponse).data.stats;
+    let hp = stats.find((stat: any) => stat.stat.name == "hp").base_stat;
+    let attack = stats.find(
+      (stat: any) => stat.stat.name == "attack"
+    ).base_stat;
+    let defense = stats.find(
+      (stat: any) => stat.stat.name == "defense"
+    ).base_stat;
+    let specialAttack = stats.find(
+      (stat: any) => stat.stat.name == "special-attack"
+    ).base_stat;
+    let specialDefense = stats.find(
+      (stat: any) => stat.stat.name == "special-defense"
+    ).base_stat;
+    let speed = stats.find((stat: any) => stat.stat.name == "speed").base_stat;
+
+    res.render("index", {
+      user: user,
+      currentPokemonImg: currentPokemonImg,
+      hp: hp,
+      attack: attack,
+      defense: defense,
+      specialAttack: specialAttack,
+      specialDefense: specialDefense,
+      speed: speed,
+    });
   } catch (e) {
     console.error(e);
   } finally {

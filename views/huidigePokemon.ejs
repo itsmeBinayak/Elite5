@@ -51,11 +51,11 @@
     </header>
     <main>
       <section class="hp_Container">
-        <article class="hp_item">
-          <h1 class="name">#<%= id %> <%= name %></h1>
+        <article class="card">
           <div class="img">
             <img src="<%= img %>" class="hp_bigImg" />
           </div>
+          <h1 class="name">#<%= id %> <%= name %></h1>
           <form
             action="/user/<%= user._id %>/pokedex/<%= name %>"
             method="post"
@@ -107,11 +107,11 @@
           </table>
         </article>
       </section>
-      <section class="hp_Container">
+      <section class="grid">
         <% for(let pokemonInfo of pokemonInfos){%>
-        <article class="hp_item">
-          <h3><%= pokemonInfo.name %></h3>
+        <article class="card evoImg">
           <img src="<%= pokemonInfo.img %>" class="hp_smallImg" />
+          <h3><%= pokemonInfo.name %></h3>
         </article>
         <%}%>
       </section>
