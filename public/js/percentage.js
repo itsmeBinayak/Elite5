@@ -17,4 +17,6 @@ class Percentage {
     const percentageValue = element.getAttribute("data-percentage");
     const percentage = new Percentage(element, percentageValue);
   });
+
+  
   

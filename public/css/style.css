@@ -1,20 +1,101 @@
-@import url('https://fonts.cdnfonts.com/css/pokemon-solid');
-*{
+@import url("https://fonts.cdnfonts.com/css/pokemon-solid");
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
-body{
-  background: url(https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png);
-  height: 100%;
-    font-family: 'Pokemon Solid', sans-serif;  
-    letter-spacing: 2px;   
+html {
+  overflow-x: hidden;
 }
-main{
-    height: auto;
+body {
+  background: url(https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png);
+  /* height: 100%; */
+  font-family: "Pokemon Solid", sans-serif;
+  letter-spacing: 2px;
+  overflow-x: hidden;
+  /* display: grid;
+  grid-template-areas:
+    "header header header"
+    "main main main"
+    "footer footer footer"; */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-nav{
+/* header {
+  grid-area: header;
+}
+main {
+  grid-area: main;
+}
+footer {
+  grid-area: footer;
+} */
+
+.pokemon-container {
+  margin-bottom: 30px;
+}
+
+header {
+  background-color: red;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+h1 {
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 24px 0 24px;
+  letter-spacing: 5px;
+}
+
+.navbar {
+  min-height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+}
+
+.nav-link {
+  transition: 0.7s ease;
+}
+
+.nav-link:hover {
+  color: dodgerblue;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 50% auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
+}
+
+/* nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -46,30 +127,64 @@ nav ul li a:hover{
 h1 {
     text-align: center;
     color: white;
-  }
-  
-.container{
-    display: grid;
+  } */
+
+.container {
+  /* display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 2rem;
     max-width: 700px;
     margin: auto;
     padding: 1.5rem;
-    justify-content: center;
+    justify-content: center; */
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
 }
-footer{
-    
-   
-    width: 100%;
-    padding: 2rem;
-    text-align: center;
-    background-color: red;
-    color: white;
+footer {
+  margin-top: 50px;
+  bottom: 0;
+  width: 100%;
+  /* padding: 1rem; */
+  text-align: center;
+  background-color: red;
+  color: white;
+  margin-top: auto;
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
   }
 
-  @media only screen and (max-width: 500px) {
-    .container{
-        grid-template-columns: 1fr;
-    }
-    
+  .hamburger.active.bar:nth-child(2) {
+    opacity: 0;
   }
+
+  .hamburger.active.bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active.bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    gap: 0;
+    flex-direction: column;
+    background-color: red;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  .nav-item {
+    margin: 16px 0;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+}

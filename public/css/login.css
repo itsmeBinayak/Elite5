@@ -1,6 +1,32 @@
 /* ----------------------------------- */
 /* login page start*/
 
+h2 {
+  color: blue;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 24px 0 24px;
+}
+
+.signUph2 {
+  color: red;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 24px 0 24px;
+}
+
+h3 {
+  color: yellowgreen;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin: 24px 0 24px;
+}
+
+label {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
 .login_main {
   height: 100vh;
 }

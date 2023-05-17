@@ -5,141 +5,84 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" href="/css/pokedex.css" />
       <link rel="stylesheet" href="/css/style.css" />
+      <link rel="stylesheet" href="/css/pokedex.css" />
       <title>Pokemon</title>
     </head>
   </head>
 
   <body>
     <header>
-      <nav>
+      <nav class="navbar">
         <img
           src="/images/pokeball.png"
           width="50px"
           height="50px"
           alt="pokeball"
         />
-        <ul>
-          <li><a href="/user/<%= user._id %>">Home</a></li>
-          <li>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item">
             <a href="/user/<%= user._id %>/pokemonComparison"
               >Pokemon comparison</a
             >
           </li>
-          <li><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
-          <li><a href="/user/<%= user._id %>/catch">Catch</a></li>
-          <li><a href="/user/<%= user._id %>">Battle</a></li>
-          <li><a href="/user/<%= user._id %>/whoIsThatPokemon">Who is that pokemon?</a></li>
-          <li><a href=""><%= user.firstname %></a></li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/pokedex">Pokedex</a>
+          </li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/catch">Catch</a>
+          </li>
+          <li class="nav-item"><a href=""><%= user.firstname %></a></li>
+
+          <li class="nav-item">
+            <a href="/login"
+              ><img
+                src="<%= currentPokemonImg %>"
+                width="80px"
+                height="80px"
+                alt="pokemon"
+            /></a>
+          </li>
         </ul>
-        <a href="/login">
-          <img
-            src="/images/pikachu.png"
-            width="50px"
-            height="50px"
-            alt="pikachu"
-          />
-        </a>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
       </nav>
     </header>
 
     <main>
-      <h1>Pokedex</h1>
-      <div class="pokedex-topbuttons">
-        <button class="surprise-me-btn">Surprise Me</button>
-        <div class="sort-by">
-          <label for="sort-select">Sort By:</label>
-          <select id="sort-select">
-            <option value="lowest-number">Lowest Number</option>
-            <option value="highest-number">Highest Number</option>
-            <option value="a-z">A-Z</option>
-            <option value="z-a">Z-A</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-            alt="Pokemon 1"
-          />
-          <h3>#001</h3>
-          <p>Balbasaur</p>
-          <span class="type">Grass / Poison</span>
-        </div>
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png"
-            alt="Pokemon 4"
-          />
-          <h3>#004</h3>
-          <p>Charmander</p>
-          <span class="type">Fire</span>
-        </div>
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
-            alt="Pokemon 7"
-          />
-          <h3>#007</h3>
-          <p>Squirtle</p>
-          <span class="type">Water</span>
-        </div>
-        <div class="card">
-          <a href="./huidigePokemon.html">
-            <img
-              src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
-              alt="Pokemon 25"
-          /></a>
-          <h3>#025</h3>
-          <p>Pikachu</p>
-          <span class="type">Electric</span>
-        </div>
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/37.png"
-            alt="Pokemon 37"
-          />
-          <h3>#037</h3>
-          <p>Vulpix</p>
-          <span class="type">Fire</span>
-        </div>
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/63.png"
-            alt="Pokemon 63"
-          />
-          <h3>#063</h3>
-          <p>Abra</p>
-          <span class="type">Psychic</span>
-        </div>
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png"
-            alt="Pokemon 130"
-          />
-          <h3>#130</h3>
-          <p>Gyarados</p>
-          <span class="type">Water / Flying</span>
-        </div>
-        <div class="card">
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/143.png"
-            alt="Pokemon 143"
-          />
-          <h3>#143</h3>
-          <p>Snorlax</p>
-          <span class="type">Normal</span>
-        </div>
-      </div>
-      <button class="load-more-btn">Load More Pokemon</button>
+      <section class="grid">
+        <% pokemonsData.sort((a,b) => a.id - b.id); for(let pokemon of
+        pokemonsData){%>
+        <article class="card">
+          <a href="/user/<%= user._id %>/pokedex/<%= pokemon.name%>">
+            <img src="<%= pokemon.img %>" alt="Pokemon 1" />
+            <h3>#<%= pokemon.id %></h3>
+            <p><%= pokemon.name %></p>
+          </a>
+          <form action="/user/<%= user._id %>/pokedex/" method="post">
+            <input
+              type="hidden"
+              name="currentPokemonName"
+              value="<%= pokemon.name %>"
+            />
+            <input
+              type="submit"
+              value="Choose this pokemon"
+              class="update"
+              class="update"
+            />
+          </form>
+        </article>
+        <%}%>
+      </section>
     </main>
     <footer>
       <p>&copy; pokemon by Elite 5</p>
     </footer>
-
-    <script src="/js/fromPokedex.js"></script>
   </body>
+  <script src="/js/fromPokedex.js"></script>
 </html>

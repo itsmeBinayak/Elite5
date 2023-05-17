@@ -10,98 +10,114 @@
   </head>
   <body>
     <header>
-      <nav>
+      <nav class="navbar">
         <img
-          src="./images/pokeball.png"
+          src="/images/pokeball.png"
           width="50px"
           height="50px"
           alt="pokeball"
         />
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/pokemonComparison">Pokemon vergelijken</a></li>
-          <li><a href="/pokedex">Pokedex</a></li>
-          <li><a href="/catch">Catch</a></li>
-          <li><a href="/">Battle</a></li>
-          <li><a href="/whoIsThatPokemon">Who is that pokemon?</a></li>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/pokemonComparison"
+              >Pokemon comparison</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/pokedex">Pokedex</a>
+          </li>
+          <li class="nav-item">
+            <a href="/user/<%= user._id %>/catch">Catch</a>
+          </li>
+          <li class="nav-item"><a href=""><%= user.firstname %></a></li>
+
+          <li class="nav-item">
+            <a href="/login"
+              ><img
+                src="<%= currentPokemonImg %>"
+                width="80px"
+                height="80px"
+                alt="pokemon"
+            /></a>
+          </li>
         </ul>
-        <img
-          src="./images/pikachu.png"
-          width="50px"
-          height="50px"
-          alt="pikachu"
-        />
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+<<<<<<< HEAD
+        
+=======
+>>>>>>> f29fa1572ddd62988ef9cf90c2ba3fa3139f0f28
       </nav>
     </header>
     <main>
       <section class="hp_Container">
         <article class="hp_item">
-          <h3 class="name">Pikachu</h3>
-                <div class="img">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" class="hp_bigImg">
-                </div>
-        </article>
-        
-        <article class="hp_item">  
-          <h2><%= pokemon %></h2>
-        <div id="stats1" >
-            <div class="skill_box">
-                 hp:<p class="stat_value">35</p> 
-                 <div class="skill">
-                    <div class="skill_level"data-percentage="35"></div>
-                </div>
-            <div class="skill_box">
-                attack:<p class="stat_value">55</p> 
-                <div class="skill">
-                    <div class="skill_level"data-percentage="55">
-                </div>
-            </div> 
-            <div class="skill_box">
-                defense:<p class="stat_value">40</p> 
-                <div class="skill">
-                    <div class="skill_level" data-percentage="40">
-                </div>        
-            </div>             
-            <div class="skill_box">
-                special-attack:<p class="stat_value">50</p> 
-                <div class="skill">
-                    <div class="skill_level"data-percentage="50">
-                </div>
-            </div> 
-            <div class="skill_box">
-                    special-defense:<p class="stat_value">50</p> 
-                <div class="skill">
-                    <div class="skill_level"data-percentage="50">
-                </div>
-            </div> 
-            <div class="skill_box">
-                speed:<p class="stat_value">90</p> 
-                <div class="skill">
-                    <div class="skill_level"data-percentage="90">
-                    </div>        
-                </div>
-            </div>
-            
+          <h1 class="name">#<%= id %> <%= name %></h1>
+          <div class="img">
+            <img src="<%= img %>" class="hp_bigImg" />
           </div>
+          <form
+            action="/user/<%= user._id %>/pokedex/<%= name %>"
+            method="post"
+          >
+            Nickname:
+            <input
+              type="text"
+              name="nickname"
+              value="<%= nickName%>"
+              id=""
+            /><br />
+            Wins: <%= wins %><br />
+            Loss: <%= loss %><br />
+            Caught: <%= caught.toLocaleDateString() %><br />
+            <input type="submit" value="Update" class="update" />
+          </form>
+        </article>
+        <article class="hp_item infoPokemon">
+          <h1 class="h1Stats">Base stats</h1>
+          <table>
+            <tr>
+              <th class="statTable">Stat</th>
+              <th class="valueTable">Value</th>
+            </tr>
+            <tr>
+              <td>HP</td>
+              <td><%= hp %></td>
+            </tr>
+            <tr>
+              <td>Attack</td>
+              <td><%= attack %></td>
+            </tr>
+            <tr>
+              <td>Defense</td>
+              <td><%= defense %></td>
+            </tr>
+            <tr>
+              <td>Special Attack</td>
+              <td><%= specialAttack %></td>
+            </tr>
+            <tr>
+              <td>Special Defense</td>
+              <td><%= specialDefense %></td>
+            </tr>
+            <tr>
+              <td class="bottomLeftTable">Speed</td>
+              <td class="bottomRightTable"><%= speed %></td>
+            </tr>
+          </table>
         </article>
       </section>
       <section class="hp_Container">
-        <article class="evolution"></article>
+        <% for(let pokemonInfo of pokemonInfos){%>
         <article class="hp_item">
-          <h4>Pichu</h4>
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/172.png" class="hp_smallImg">
+          <h3><%= pokemonInfo.name %></h3>
+          <img src="<%= pokemonInfo.img %>" class="hp_smallImg" />
         </article>
-        <article class="hp_item">
-          <h4>Pikachu</h4>
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" class="hp_smallImg">
-        </article>
-        <article class="hp_item">
-          <h4>Raichu</h4>
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png" class="hp_smallImg">
-        </article>
-      </section>
-      <section class="hp_Container">
-        <a class="hp_button">Choose this pokemon</a>
+        <%}%>
       </section>
     </main>
     <footer>
