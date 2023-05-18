@@ -1,60 +1,45 @@
 import axios from "axios";
+import {
+  Pokemon,
+  PeopleProfile,
+  PokedexPokemon,
+  PokemonSpecies,
+  PokemonEvolution,
+  EvolutionChain,
+  PokemonInfo,
+} from "./types";
 
 // api call
 const pokemonApi = async (pokemonName: string) => {
   return axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
 };
 
-// stats
+// user pokemons info
+const userPokemonsData = async (userPokemons: any) => {
+  const pokemonsData: PokedexPokemon[] = [];
 
-// hp stat
-const pokemonHp = async (stats: any) => {
-  let hp = stats.find((stat: any) => stat.stat.name == "hp").base_stat;
+  for (let userpokemon of userPokemons) {
+    let pokeResponse = pokemonApi(userpokemon?.name!);
+
+    const pokemon: PokedexPokemon = {
+      name: userpokemon.name,
+      id: (await pokeResponse).data.id,
+      img: (await pokeResponse).data.sprites.front_default,
+      nickName: userpokemon.nickName,
+      wins: userpokemon.wins,
+      loss: userpokemon.loss,
+      caught: userpokemon.caught,
+    };
+    pokemonsData.push(pokemon);
+  }
+
+  return pokemonsData;
+};
+
+// stats
+const pokemonStats = async (stats: any, whichStatName: string) => {
+  let hp = stats.find((stat: any) => stat.stat.name == whichStatName).base_stat;
   return hp;
 };
 
-// attack stat
-const pokemonAttack = async (stats: any) => {
-  let attack = stats.find((stat: any) => stat.stat.name == "attack").base_stat;
-  return attack;
-};
-
-// defense stat
-const pokemonDefense = async (stats: any) => {
-  let defense = stats.find(
-    (stat: any) => stat.stat.name == "defense"
-  ).base_stat;
-  return defense;
-};
-
-// special attack stat
-const pokemonSpecialAttack = async (stats: any) => {
-  let specialAttack = stats.find(
-    (stat: any) => stat.stat.name == "special-attack"
-  ).base_stat;
-  return specialAttack;
-};
-
-// special defense stat
-const pokemonSpecialDefense = async (stats: any) => {
-  let specialDefense = stats.find(
-    (stat: any) => stat.stat.name == "special-defense"
-  ).base_stat;
-  return specialDefense;
-};
-
-// speed stat
-const pokemonSpeed = async (stats: any) => {
-  let speed = stats.find((stat: any) => stat.stat.name == "speed").base_stat;
-  return speed;
-};
-
-export {
-  pokemonApi,
-  pokemonHp,
-  pokemonAttack,
-  pokemonDefense,
-  pokemonSpecialAttack,
-  pokemonSpecialDefense,
-  pokemonSpeed,
-};
+export { pokemonApi, userPokemonsData, pokemonStats };
