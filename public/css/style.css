@@ -71,6 +71,7 @@ footer {
   font-size: 2.4rem;
   line-height: 1.05;
   margin-bottom: 3.2rem;
+  color: yellowgreen;
 }
 
 .ashDescription {
@@ -110,7 +111,6 @@ h1 {
 }
 
 .navbar {
-  
   min-height: 60px;
   display: flex;
   justify-content: space-between;
@@ -130,7 +130,8 @@ h1 {
 }
 
 .nav-link:hover {
-  color: blue;
+  color: yellowgreen;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hamburger {
@@ -147,32 +148,31 @@ h1 {
   transition: all 0.3s ease-in-out;
   background-color: white;
 }
-.action{
+.action {
   position: relative;
-  top: 20px;
-  right: 30px;
 }
 
-.action .sub-menu{
+.action .sub-menu {
   position: absolute;
   top: 80px;
   right: -10px;
   padding: 10px 20px;
   background: red;
   width: 200px;
-  box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   transition: 0.5s;
   visibility: hidden;
   opacity: 0;
+  color: white;
 }
-.action .sub-menu.active{
+.action .sub-menu.active {
   visibility: visible;
   opacity: 1;
 }
 
-.action .sub-menu::before{
-  content: '';
+.action .sub-menu::before {
+  content: "";
   position: absolute;
   top: -5px;
   right: 35px;
@@ -181,7 +181,7 @@ h1 {
   background: red;
   transform: rotate(45deg);
 }
-.action .sub-menu h3{
+.action .sub-menu h3 {
   width: 100%;
   text-align: center;
   font-size: 18px;
@@ -190,7 +190,7 @@ h1 {
   line-height: 1.2em;
 }
 
-.action .sub-menu ul li{
+.action .sub-menu ul li {
   list-style: none;
   padding: 10px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -199,26 +199,27 @@ h1 {
   justify-content: center;
 }
 
-.action .sub-menu ul li img{
+.action .sub-menu ul li img {
   max-width: 20px;
   margin-right: 10px;
   opacity: 0.5;
   transition: 0.5s;
 }
 
-.action .sub-menu ul li:hover img{
+.action .sub-menu ul li:hover img {
   opacity: 1;
 }
 
-.action .sub-menu ul li a{
+.action .sub-menu ul li a {
   display: inline-block;
   text-decoration: none;
   font-weight: 500;
   transition: 0.5s ease;
 }
 
-.action .sub-menu ul li:hover a{
- color: blue;
+.action .sub-menu ul li:hover a {
+  color: yellowgreen;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 .container {
   /* display: grid;
@@ -315,7 +316,7 @@ footer {
     width: 100%;
   }
 
-  main{
+  main {
     margin-top: 20px;
   }
 

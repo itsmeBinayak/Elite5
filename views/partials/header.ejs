@@ -1,0 +1,63 @@
+
+</head>
+<body>
+    <header>
+    <nav class="navbar">
+      <a href="/user/<%= user._id %>">
+        <img
+          src="/images/pokeball.png"
+          width="50px"
+          height="50px"
+          alt="pokeball"
+        />
+      </a>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link" href="/user/<%= user._id %>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/<%= user._id %>/pokemonComparison"
+            >Pokemon comparison</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/<%= user._id %>/pokedex">Pokedex</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/user/<%= user._id %>/catch">Catch</a>
+        </li>
+        <!-- <li class="nav-item"><a href=""><%= user.firstname %></a></li> -->
+        <!-- <li class="nav-item">
+          
+        </li> -->
+        <li>
+          <div class="action">
+            <div class="profile" onclick="menuToggle();">
+              <!-- <a href="/user/<%= user._id %>"
+                ></a>--><img
+                src="<%= currentPokemonImg %>"
+                width="80px"
+                height="80px"
+                alt="pokemon"
+                class="pokeImg"
+              />
+            </div>
+            <div class="sub-menu">
+              <h3><%= user.firstname %></h3>
+              <ul>
+                <li style="text-align: center">
+                  <a href="/">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </nav>
+  </header>
