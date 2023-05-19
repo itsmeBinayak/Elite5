@@ -1,0 +1,226 @@
+body{
+    letter-spacing: 3px;
+
+}
+h3{
+    color: white;
+}
+.fig{
+    color: white;
+    text-align: center;
+    width: 144px;
+    height: 144px;
+    margin-left: 200px;
+    
+}
+
+.img{
+    width: auto;
+}
+.catchbutton{
+    transition: transform 0.5s ease;
+    margin: auto;
+    display: block;
+    width: 144px;
+    height: 144px;
+   
+    
+}
+.catchbutton:hover{
+    cursor: pointer;
+    
+}
+.wiebelen{
+    animation: wiebelen 4.5s ease-in-out;
+    transition: transform 0.5s ease;
+}
+
+@keyframes wiebelen {
+    0% { transform: rotate(0deg); }
+  10% { transform: rotate(10deg); }
+  20% { transform: rotate(-10deg); }
+  30% { transform: rotate(10deg); }
+  40% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  60% { transform: rotate(-10deg); }
+  70% { transform: rotate(10deg); }
+  80% { transform: rotate(-10deg); }
+  90% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+
+section{
+    width: 100%;
+    height: auto;
+    max-width: 30rem;
+    padding: 1.5 rem 1.5rem 2rem;
+    border: 2px solid white;
+    background-color: gray;
+    border-radius: 0.5rem;
+    margin: 50px;
+    
+       
+}
+
+.skill_box{
+    box-sizing: border-box;
+    width: 100%;
+    margin: 5px 0;
+    font-weight: bold;
+    
+}
+.stat_value{
+    float: right;
+    margin-right: 10px;
+    
+}
+.skill{
+    background: #141313;
+    padding: 4px;
+    box-sizing: border-box;
+    border: 1px solid #0501fa;
+    border-radius: 2px;
+}
+.skill_level{
+    background-color: yellow;
+    border-radius: 0 8px 8px 0;
+    width: 100%;
+    height: 5px;
+}
+.skill_level[data-percentage="20"]:after {
+    width: 20%;
+}
+
+
+.dropbtn {
+    margin: 15px;
+    border-radius: 8px 8px 8px 8px;
+    width: 100px;
+    height: 20px;
+    border: 0;
+    background-position: center;
+    
+    background-size:80px;
+    cursor: pointer;
+    
+}
+.btnContainer{
+    color: white;
+    font-size: medium;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+}
+.dropdown {
+    
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: stretch;
+    
+}
+
+  
+.dropdown-content {
+    margin-top: 30px;
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 40px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+  
+  .dropdown-content a:hover {background-color: lightgray}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+  background-color: lightgrey;
+}
+
+
+.myPokemon{
+    height: 300px;
+    width: 150px;
+    padding-left: 20px;
+
+}
+
+
+.randomPokemon{
+    width: 280px;
+    margin-left: 270px;
+    margin-right: 70px;
+}
+
+  main{
+    flex: 1;
+  }
+
+.pokeCatched{
+    margin-top: 20px;
+    margin-left: 20px;
+  
+}
+
+.randomPokeButton{
+    background-color: royalblue;
+    color: white;
+    border-radius: 8px 8px 8px 8px;
+    height: 50px;
+    width: 150px;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+.randomPokeButton:hover{
+    cursor: pointer;
+}
+
+.Flex{
+    display: flex;
+    flex-direction: row;
+}
+
+.Flex2{
+    display: flex;
+    flex-direction: row;
+    
+}
+.Flex3{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-top: 10px;
+}
+
+.randomPokeStats{
+    width: 350px;
+    margin-left: 120px;
+}
+
+.nameRando{
+    margin-left: 80px;
+    align-items: center;
+    letter-spacing: 5px;
+    min-width: 150px;
+}
+
+.myPokemon{
+    width: 250px;
+    padding: 50px;
+    padding-top: 0px;
+}

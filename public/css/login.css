@@ -125,6 +125,13 @@ h1 {
   cursor: pointer;
 }
 
+.login_signIn {
+  background-color: blue;
+  text-align: center;
+  text-decoration: none;
+  /* display: inline-block; */
+}
+
 .login_signUp {
   background-color: red;
   text-align: center;
