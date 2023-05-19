@@ -11,12 +11,14 @@
   <body>
     <header>
       <nav class="navbar">
-        <img
-          src="/images/pokeball.png"
-          width="50px"
-          height="50px"
-          alt="pokeball"
-        />
+        <a href="/user/<%= user._id %>">
+          <img
+            src="/images/pokeball.png"
+            width="50px"
+            height="50px"
+            alt="pokeball"
+          />
+        </a>
         <ul class="nav-menu">
           <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
           <li class="nav-item">
@@ -31,9 +33,8 @@
             <a href="/user/<%= user._id %>/catch">Catch</a>
           </li>
           <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-
           <li class="nav-item">
-            <a href="/login"
+            <a href="/user/<%= user._id %>"
               ><img
                 src="<%= currentPokemonImg %>"
                 width="80px"
@@ -47,10 +48,6 @@
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-<<<<<<< HEAD
-        
-=======
->>>>>>> f29fa1572ddd62988ef9cf90c2ba3fa3139f0f28
       </nav>
     </header>
     <main>
@@ -123,6 +120,7 @@
     <footer>
       <p>&copy; pokemon by Elite 5</p>
     </footer>
+    <script src="/js/hamburger.js"></script>
     <script src="/js/percentage.js"></script>
     <script src="/js/pokeApi.js"></script>
   </body>

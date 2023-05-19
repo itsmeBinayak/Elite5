@@ -103,6 +103,11 @@ h3{
     align-content: center;
     margin-top: 500px;
 }
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
 
 @media only screen and (max-width: 768px) {
 
