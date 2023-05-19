@@ -5,7 +5,13 @@ import axios from "axios";
 import { MongoClient, ObjectId } from "mongodb";
 import { getRandomPokemon } from "./RandompokeAPI";
 import { isPokemonCaught } from "./isPokemonCaught";
-import { pokemonApi, userPokemonsData, pokemonStats } from "./pokemon";
+import {
+  pokemonApi,
+  userPokemonsData,
+  pokemonStats,
+  thisPokemon,
+  evolutionApi,
+} from "./pokemon";
 import {
   Pokemon,
   PeopleProfile,
@@ -60,16 +66,21 @@ app.post("/login", async (req: any, res: any) => {
     await client.connect();
     console.log("connected to database");
 
+    // user email and password from form
     let email = req.body.email;
     let password = req.body.password;
 
+    // database collection
     let peopleProfileCollection = client
       .db("Elite5Pokemon")
       .collection("PeopleProfiles");
+
+    // find user
     let loginUser = await peopleProfileCollection.findOne<PeopleProfile>({
       email: email,
     });
 
+    // check password
     if (password == loginUser?.password) {
       res.redirect(`/user/${loginUser?._id}`);
     } else {
@@ -95,10 +106,12 @@ app.post("/signUp", async (req: any, res: any) => {
     await client.connect();
     console.log("connected to database");
 
+    // database collection
     let peopleProfileCollection = client
       .db("Elite5Pokemon")
       .collection("PeopleProfiles");
 
+    // create user in database
     await peopleProfileCollection.insertOne({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -116,6 +129,7 @@ app.post("/signUp", async (req: any, res: any) => {
       currentPokemon: "pikachu",
     });
 
+    // render created account page message
     res.render("accountMade", {
       firstname: req.body.firstname,
     });
@@ -146,17 +160,17 @@ app.get("/user/:id", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    // current pokemon
+    // pokemon from database
     let currentPokemon = user?.currentPokemon!;
 
     // api call
-    let pokeResponse = await pokemonApi(currentPokemon);
+    let currPokemonResponse = await pokemonApi(currentPokemon);
 
     // current pokemon img
-    let currentPokemonImg = pokeResponse.data.sprites.front_default;
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
     //stats
-    let stats = pokeResponse.data.stats;
+    let stats = currPokemonResponse.data.stats;
     let hp = await pokemonStats(stats, "hp");
     let attack = await pokemonStats(stats, "attack");
     let defense = await pokemonStats(stats, "defense");
@@ -202,14 +216,14 @@ app.get("/user/:id/pokemonComparison", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    // current pokemon
+    // pokemon from database
     let currentPokemon = user?.currentPokemon!;
 
     // api call
-    let pokeResponse = await pokemonApi(currentPokemon);
+    let currPokemonResponse = await pokemonApi(currentPokemon);
 
     // current pokemon img
-    let currentPokemonImg = pokeResponse.data.sprites.front_default;
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
     // render pokemon comparison page
     res.render("vergelijken", {
@@ -248,10 +262,10 @@ app.get("/user/:id/pokedex", async (req: any, res: any) => {
     let userPokemons = user?.yourPokemon!;
 
     // api call
-    let pokeResponse = await pokemonApi(currentPokemon);
+    let currPokemonResponse = await pokemonApi(currentPokemon);
 
     // current pokemon img
-    let currentPokemonImg = pokeResponse.data.sprites.front_default;
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
     // your pokemons data
     let pokemonsData = await userPokemonsData(userPokemons);
@@ -290,20 +304,20 @@ app.post("/user/:id/pokedex", async (req: any, res: any) => {
       _id: id,
     });
 
-    // current pokemon
+    // pokemon from database
     let currentPokemon = user?.currentPokemon!;
     let userPokemons = user?.yourPokemon!;
 
     // api call
-    let pokeResponse = await pokemonApi(currentPokemon);
+    let currPokemonResponse = await pokemonApi(currentPokemon);
 
     // current pokemon img
-    let currentPokemonImg = pokeResponse.data.sprites.front_default;
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
     // your pokemons data
     let pokemonsData = await userPokemonsData(userPokemons);
 
-    // change current pokemon
+    // change current pokemon value
     if (user != undefined) {
       user.currentPokemon = req.body.currentPokemonName;
     }
@@ -353,78 +367,38 @@ app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
       _id: new ObjectId(id),
     });
 
-    let currentPokemon = user?.currentPokemon;
+    // pokemon from database
+    let currentPokemon = user?.currentPokemon!;
+    let userPokemons = user?.yourPokemon!;
 
-    let pokeResponseImg = axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
-    );
+    // find pokemon from users your pokemon given by url
+    let findPokemon = thisPokemon(userPokemons, pokemonName);
 
-    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+    // api call
+    let currPokemonResponse = await pokemonApi(currentPokemon);
+    let pokeResponse = await pokemonApi(pokemonName);
 
-    //------------------------------------
-
-    //finding pokemon from url
-    const userPokemons = user?.yourPokemon;
-    const findPokemon = userPokemons?.find((p) => p.name === pokemonName);
+    // current pokemon img
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
     //looking evolution
-    let pokeResponse = axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-    );
+    let pokemonInfos = await evolutionApi(pokeResponse);
 
-    const speciesUrl: string = (await pokeResponse).data.species.url;
+    //stats
+    let stats = pokeResponse.data.stats;
+    let hp = await pokemonStats(stats, "hp");
+    let attack = await pokemonStats(stats, "attack");
+    let defense = await pokemonStats(stats, "defense");
+    let specialAttack = await pokemonStats(stats, "special-attack");
+    let specialDefense = await pokemonStats(stats, "special-defense");
+    let speed = await pokemonStats(stats, "speed");
 
-    let pokemonSpeciesUrl = axios.get(speciesUrl);
-    const evolutionChainUrl: string = (await pokemonSpeciesUrl).data
-      .evolution_chain.url;
-
-    let pokemonEvolutionChainUrl = axios.get(evolutionChainUrl);
-    const evolutionChain = (await pokemonEvolutionChainUrl).data.chain;
-
-    const pokemonInfos: PokemonInfo[] = [];
-
-    const parseEvolutionChain = async (evolution: PokemonEvolution) => {
-      const name = evolution.species.name;
-      // let pokeImgResponse = axios.get(
-      //   `https://pokeapi.co/api/v2/pokemon/${name}`
-      // );
-      // const img = (await pokeImgResponse).data.sprites.front_default;
-      // console.log(img);
-
-      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-        evolution.species.url.split("/")[6]
-      }.png`;
-
-      pokemonInfos.push({ name, img });
-
-      evolution.evolves_to.forEach((evolution) => {
-        parseEvolutionChain(evolution);
-      });
-    };
-
-    parseEvolutionChain(evolutionChain);
-
-    const stats = (await pokeResponse).data.stats;
-    let hp = stats.find((stat: any) => stat.stat.name == "hp").base_stat;
-    let attack = stats.find(
-      (stat: any) => stat.stat.name == "attack"
-    ).base_stat;
-    let defense = stats.find(
-      (stat: any) => stat.stat.name == "defense"
-    ).base_stat;
-    let specialAttack = stats.find(
-      (stat: any) => stat.stat.name == "special-attack"
-    ).base_stat;
-    let specialDefense = stats.find(
-      (stat: any) => stat.stat.name == "special-defense"
-    ).base_stat;
-    let speed = stats.find((stat: any) => stat.stat.name == "speed").base_stat;
-
+    // render currentPokemon page
     res.render("huidigePokemon", {
       user: user,
       name: findPokemon?.name,
-      id: (await pokeResponse).data.id,
-      img: (await pokeResponse).data.sprites.front_default,
+      id: pokeResponse.data.id,
+      img: pokeResponse.data.sprites.front_default,
       nickName: findPokemon?.nickName,
       wins: findPokemon?.wins,
       loss: findPokemon?.loss,
@@ -448,88 +422,56 @@ app.get("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
 // currentPokemon page: post
 app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
   try {
+    // connect to database
     await client.connect();
     console.log("connected to database");
 
+    // user id and pokemon name from url
     let id = new ObjectId(req.params.id);
     let pokemonName: string = req.params.pokemonName;
 
+    // database collection
     let peopleProfileCollection = client
       .db("Elite5Pokemon")
       .collection("PeopleProfiles");
+
+    // find user
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: id,
     });
 
-    let currentPokemon = user?.currentPokemon;
+    // pokemon from database
+    let currentPokemon = user?.currentPokemon!;
+    let userPokemons = user?.yourPokemon!;
 
-    let pokeResponseImg = axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
-    );
+    // find pokemon from users your pokemon given by url
+    let findPokemon = thisPokemon(userPokemons, pokemonName);
 
-    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+    // api call
+    let currPokemonResponse = await pokemonApi(currentPokemon);
+    let pokeResponse = await pokemonApi(pokemonName);
 
-    //------------------------------------
-
-    //finding pokemon from url
-    const userPokemons = user?.yourPokemon;
-    const findPokemon = userPokemons?.find((p) => p.name === pokemonName);
-
-    // findPokemon?.name = req.body.nickname;
+    // current pokemon img
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
     //looking evolution
-    let pokeResponse = axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-    );
+    let pokemonInfos = await evolutionApi(pokeResponse);
 
-    const speciesUrl: string = (await pokeResponse).data.species.url;
+    //stats
+    let stats = pokeResponse.data.stats;
+    let hp = await pokemonStats(stats, "hp");
+    let attack = await pokemonStats(stats, "attack");
+    let defense = await pokemonStats(stats, "defense");
+    let specialAttack = await pokemonStats(stats, "special-attack");
+    let specialDefense = await pokemonStats(stats, "special-defense");
+    let speed = await pokemonStats(stats, "speed");
 
-    let pokemonSpeciesUrl = axios.get(speciesUrl);
-    const evolutionChainUrl: string = (await pokemonSpeciesUrl).data
-      .evolution_chain.url;
-
-    let pokemonEvolutionChainUrl = axios.get(evolutionChainUrl);
-    const evolutionChain = (await pokemonEvolutionChainUrl).data.chain;
-
-    const pokemonInfos: PokemonInfo[] = [];
-
-    const parseEvolutionChain = async (evolution: PokemonEvolution) => {
-      const name = evolution.species.name;
-      const img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-        evolution.species.url.split("/")[6]
-      }.png`;
-
-      pokemonInfos.push({ name, img });
-
-      evolution.evolves_to.forEach((evolution) => {
-        parseEvolutionChain(evolution);
-      });
-    };
-
-    parseEvolutionChain(evolutionChain);
-
-    const stats = (await pokeResponse).data.stats;
-    let hp = stats.find((stat: any) => stat.stat.name == "hp").base_stat;
-    let attack = stats.find(
-      (stat: any) => stat.stat.name == "attack"
-    ).base_stat;
-    let defense = stats.find(
-      (stat: any) => stat.stat.name == "defense"
-    ).base_stat;
-    let specialAttack = stats.find(
-      (stat: any) => stat.stat.name == "special-attack"
-    ).base_stat;
-    let specialDefense = stats.find(
-      (stat: any) => stat.stat.name == "special-defense"
-    ).base_stat;
-    let speed = stats.find((stat: any) => stat.stat.name == "speed").base_stat;
-
-    // ----------------------------------------------------
-
+    // change pokemon nickname
     if (findPokemon != undefined) {
       findPokemon.nickName = req.body.nickname;
     }
 
+    // update database
     await peopleProfileCollection.updateOne(
       {
         _id: id,
@@ -539,11 +481,12 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
       }
     );
 
+    // render currentPokemon page
     res.render("huidigePokemon", {
       user: user,
       name: findPokemon?.name,
-      id: (await pokeResponse).data.id,
-      img: (await pokeResponse).data.sprites.front_default,
+      id: pokeResponse.data.id,
+      img: pokeResponse.data.sprites.front_default,
       nickName: findPokemon?.nickName,
       wins: findPokemon?.wins,
       loss: findPokemon?.loss,
@@ -557,10 +500,6 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
       speed: speed,
       currentPokemonImg: currentPokemonImg,
     });
-
-    // res.render("huidigePokemon");
-
-    res.render("");
   } catch (e) {
     console.error(e);
   } finally {
@@ -571,31 +510,36 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
 // catch page: get
 app.get("/user/:id/catch", async (req: any, res: any) => {
   try {
+    // connect to database
     await client.connect();
     console.log("connected to database");
 
+    // user id from url
     let id: number = req.params.id;
 
     let pokemon = await getRandomPokemon();
     let PokemonCaught = await isPokemonCaught(pokemon.name, id);
 
+    // database collection
     let peopleProfileCollection = client
       .db("Elite5Pokemon")
       .collection("PeopleProfiles");
+
+    // find user
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: new ObjectId(id),
     });
 
-    let currentPokemon = user?.currentPokemon;
+    // pokemon from database
+    let currentPokemon = user?.currentPokemon!;
 
-    let pokeResponseImg = axios.get(
-      `https://pokeapi.co/api/v2/pokemon/${currentPokemon}`
-    );
+    // api call
+    let currPokemonResponse = await pokemonApi(currentPokemon);
 
-    let currentPokemonImg = (await pokeResponseImg).data.sprites.front_default;
+    // current pokemon img
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
 
-    //------------------------------------
-
+    // render catch page
     res.render("catch", {
       user: user,
       pokemon,

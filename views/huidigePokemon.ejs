@@ -11,12 +11,14 @@
   <body>
     <header>
       <nav class="navbar">
-        <img
-          src="/images/pokeball.png"
-          width="50px"
-          height="50px"
-          alt="pokeball"
-        />
+        <a href="/user/<%= user._id %>">
+          <img
+            src="/images/pokeball.png"
+            width="50px"
+            height="50px"
+            alt="pokeball"
+          />
+        </a>
         <ul class="nav-menu">
           <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
           <li class="nav-item">
@@ -31,9 +33,8 @@
             <a href="/user/<%= user._id %>/catch">Catch</a>
           </li>
           <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-
           <li class="nav-item">
-            <a href="/login"
+            <a href="/user/<%= user._id %>"
               ><img
                 src="<%= currentPokemonImg %>"
                 width="80px"
