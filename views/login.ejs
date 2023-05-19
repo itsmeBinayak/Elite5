@@ -33,7 +33,12 @@
               id="password"
               placeholder="password"
               required
-            /><br /><br />
+            /><br />
+
+            <% if(message){ %>
+            <small class="errorMsg"><%= message %></small>
+            <%}%>
+            <br />
           </fieldset>
           <input type="submit" value="Login" class="login_signIn" />
           <a href="/signUp" class="login_signUp">Sign Up</a>

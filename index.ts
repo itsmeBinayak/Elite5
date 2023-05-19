@@ -56,7 +56,9 @@ app.get("/projectsError", (req: any, res: any) => {
 // login page: get
 app.get("/login", (req: any, res: any) => {
   // render
-  res.render("login");
+  res.render("login", {
+    message: "",
+  });
 });
 
 // login page: post
@@ -84,7 +86,11 @@ app.post("/login", async (req: any, res: any) => {
     if (password == loginUser?.password) {
       res.redirect(`/user/${loginUser?._id}`);
     } else {
-      res.redirect(`/login`);
+      // res.redirect(`/login`);
+      // render login page with error messahe
+      res.render("login", {
+        message: "Wrong email or password",
+      });
     }
   } catch (e) {
     console.error(e);
