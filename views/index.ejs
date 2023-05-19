@@ -7,49 +7,9 @@
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/vergelijkenStyle.css" />
     <title>Pokemon</title>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar">
-        <a href="/user/<%= user._id %>">
-          <img
-            src="/images/pokeball.png"
-            width="50px"
-            height="50px"
-            alt="pokeball"
-          />
-        </a>
-        <ul class="nav-menu">
-          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
-          <li class="nav-item">
-            <a href="/user/<%= user._id %>/pokemonComparison"
-              >Pokemon comparison</a
-            >
-          </li>
-          <li class="nav-item">
-            <a href="/user/<%= user._id %>/pokedex">Pokedex</a>
-          </li>
-          <li class="nav-item">
-            <a href="/user/<%= user._id %>/catch">Catch</a>
-          </li>
-          <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-          <li class="nav-item">
-            <a href="/user/<%= user._id %>"
-              ><img
-                src="<%= currentPokemonImg %>"
-                width="80px"
-                height="80px"
-                alt="pokemon"
-            /></a>
-          </li>
-        </ul>
-        <div class="hamburger">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </div>
-      </nav>
-    </header>
+
+    <%- include ("partials/header.ejs") %>
+
     <main>
       <div class="sectionAsh">
         <div class="ash">
@@ -144,11 +104,5 @@
         </section>
       </div>
       <br />
-    </main>
-    <footer>
-      <p>&copy; pokemon by Elite 5</p>
-    </footer>
-  </body>
-  <script src="/js/hamburger.js"></script>
-  <script src="/js/percentage.js"></script>
-</html>
+
+<%- include ("partials/footer.ejs") %>

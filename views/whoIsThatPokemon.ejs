@@ -11,30 +11,55 @@
   <body>
     <header>
       <nav class="navbar">
-        <img
-          src="/images/pokeball.png"
-          width="50px"
-          height="50px"
-          alt="pokeball"
-        />
+        <a href="/user/<%= user._id %>">
+          <img
+            src="/images/pokeball.png"
+            width="50px"
+            height="50px"
+            alt="pokeball"
+          />
+        </a>
         <ul class="nav-menu">
-          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/pokemonComparison">Pokemon comparison</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/pokedex">Pokedex</a></li>
-          <li class="nav-item"><a href="/user/<%= user._id %>/catch">Catch</a></li>
-          <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-          <li class="nav-item"><a href="/login"><img
-              src="/images/pikachu.png"
-              width="30px"
-              height="30px"
-              alt="pokemon"/></a></li>
+          <li class="nav-item"><a class="nav-link" href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%= user._id %>/pokemonComparison"
+              >Pokemon comparison</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%= user._id %>/pokedex">Pokedex</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user/<%= user._id %>/catch">Catch</a>
+          </li>
+          <!-- <li class="nav-item"><a href=""><%= user.firstname %></a></li> -->
+          <!-- <li class="nav-item">
+            
+          </li> -->
         </ul>
+        <div class="action">
+          <div class="profile" onclick="menuToggle();">
+            <!-- <a href="/user/<%= user._id %>"
+              ></a>--><img 
+                src="<%= currentPokemonImg %>"
+                width="80px"
+                height="80px"
+                alt="pokemon"
+            />
+          </div>
+          <div class="sub-menu">
+            <h3><%= user.firstname %></h3>
+            <ul>
+              <li><img src="/images/log-out.png" alt="exit"><a href="#">Logout</a></li>
+            </ul>
+            </div>
+        </div>
+        
         <div class="hamburger">
           <span class="bar"></span>
           <span class="bar"></span>
           <span class="bar"></span>
         </div>
-        
       </nav>
     </header>
     <main>
@@ -51,4 +76,6 @@
       <p>&copy; pokemon by Elite 5</p>
     </footer>
   </body>
+  <script src="/js/dropdown.js"></script>
+  <script src="/js/hamburger.js"></script>
 </html>
