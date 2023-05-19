@@ -23,29 +23,41 @@
           />
         </a>
         <ul class="nav-menu">
-          <li class="nav-item"><a href="/user/<%= user._id %>">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/user/<%= user._id %>">Home</a></li>
           <li class="nav-item">
-            <a href="/user/<%= user._id %>/pokemonComparison"
+            <a class="nav-link" href="/user/<%= user._id %>/pokemonComparison"
               >Pokemon comparison</a
             >
           </li>
           <li class="nav-item">
-            <a href="/user/<%= user._id %>/pokedex">Pokedex</a>
+            <a class="nav-link" href="/user/<%= user._id %>/pokedex">Pokedex</a>
           </li>
           <li class="nav-item">
-            <a href="/user/<%= user._id %>/catch">Catch</a>
+            <a class="nav-link" href="/user/<%= user._id %>/catch">Catch</a>
           </li>
-          <li class="nav-item"><a href=""><%= user.firstname %></a></li>
-          <li class="nav-item">
-            <a href="/user/<%= user._id %>"
-              ><img
+          <!-- <li class="nav-item"><a href=""><%= user.firstname %></a></li> -->
+          <!-- <li class="nav-item">
+            
+          </li> -->
+        </ul>
+        <div class="action">
+          <div class="profile" onclick="menuToggle();">
+            <!-- <a href="/user/<%= user._id %>"
+              ></a>--><img 
                 src="<%= currentPokemonImg %>"
                 width="80px"
                 height="80px"
                 alt="pokemon"
-            /></a>
-          </li>
-        </ul>
+            />
+          </div>
+          <div class="sub-menu">
+            <h3><%= user.firstname %></h3>
+            <ul>
+              <li><img src="/images/log-out.png" alt="exit"><a href="#">Logout</a></li>
+            </ul>
+            </div>
+        </div>
+        
         <div class="hamburger">
           <span class="bar"></span>
           <span class="bar"></span>
@@ -87,4 +99,5 @@
   </body>
   <script src="/js/hamburger.js"></script>
   <script src="/js/fromPokedex.js"></script>
+  <script src="/js/dropdown.js"></script>
 </html>
