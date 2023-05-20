@@ -166,6 +166,11 @@ h1 {
   opacity: 0;
   color: white;
 }
+
+.sub-menu h3 {
+  color: white;
+}
+
 .action .sub-menu.active {
   visibility: visible;
   opacity: 1;
