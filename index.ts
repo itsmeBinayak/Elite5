@@ -472,9 +472,11 @@ app.post("/user/:id/pokedex/:pokemonName", async (req: any, res: any) => {
     let specialDefense = await pokemonStats(stats, "special-defense");
     let speed = await pokemonStats(stats, "speed");
 
-    // change pokemon nickname
+    // change pokemon nickname, wins and loss
     if (findPokemon != undefined) {
       findPokemon.nickName = req.body.nickname;
+      findPokemon.wins = req.body.wins;
+      findPokemon.loss = req.body.loss;
     }
 
     // update database
@@ -558,29 +560,6 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
     await client.close();
   }
 });
-
-// whoIsThatPokemon - whoIsThatPokemon page
-// app.get("/user/:id/whoIsThatPokemon", async (req: any, res: any) => {
-//   try {
-//     await client.connect();
-//     console.log("connected to database");
-
-//     let id: number = req.params.id;
-
-//     let peopleProfileCollection = client
-//       .db("Elite5Pokemon")
-//       .collection("PeopleProfiles");
-//     let user = await peopleProfileCollection.findOne<PeopleProfile>({
-//       _id: new ObjectId(id),
-//     });
-
-//     res.render("whoIsThatPokemon", { user: user });
-//   } catch (e) {
-//     console.error(e);
-//   } finally {
-//     await client.close();
-//   }
-// });
 
 // listen to localhost
 app.listen(app.get("port"), async () => {

@@ -28,8 +28,23 @@
               value="<%= nickName%>"
               id=""
             /><br />
-            Wins: <%= wins %><br />
-            Loss: <%= loss %><br />
+            Wins: 
+            <input
+              type="number"
+              name="wins"
+              value="<%= wins %>"
+              min="0"
+              id="number-input"
+            />
+            <br />
+            Loss:
+            <input
+              type="number"
+              name="loss"
+              value="<%= loss %>"
+              min="0"
+              id="number-input"
+            /><br />
             Caught: <%= caught.toLocaleDateString() %><br />
             <input type="submit" value="Update" class="update" />
           </form>
@@ -77,3 +92,6 @@
         <%}%>
       </section>
       <%- include ("partials/footer.ejs") %>
+    </main>
+  </head>
+</html>
