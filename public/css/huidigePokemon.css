@@ -212,6 +212,27 @@ input {
   border-radius: 4px;
 }
 
+.decrease-btn,
+.increase-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+}
+
+.pokemon-container {
+  width: 100%;
+  height: auto;
+  max-width: 30rem;
+  padding: 1.5 rem 1.5rem 2rem;
+  border: 2px solid white;
+  background-color: gray;
+  border-radius: 0.5rem;
+}
+
+.pokemon-container{
+  width: 350px;
+}
+
 @media all and (max-width: 700px) {
   .hp_Container {
     display: flex;
