@@ -3,8 +3,9 @@ import ejs from "ejs";
 import fs from "fs/promises";
 import axios from "axios";
 import { MongoClient, ObjectId } from "mongodb";
-import { getRandomPokemon } from "./RandompokeAPI";
+import { getRandomPokemon, getPokemon} from "./RandompokeAPI";
 import { isPokemonCaught } from "./isPokemonCaught";
+import {addPokemon, deletePokemon} from "./Addpokemon"
 import {
   pokemonApi,
   userPokemonsData,
@@ -21,6 +22,7 @@ import {
   EvolutionChain,
   PokemonInfo,
 } from "./types";
+import { get } from "http";
 
 // database url
 const uri: string =
@@ -523,8 +525,11 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
     // user id from url
     let id: number = req.params.id;
 
-    let pokemon = await getRandomPokemon();
-    let PokemonCaught = await isPokemonCaught(pokemon.name, id);
+    let rpokemon = await getRandomPokemon();
+    let PokemonCaught = await isPokemonCaught(rpokemon.name, id);
+
+
+    
 
     // database collection
     let peopleProfileCollection = client
@@ -535,27 +540,62 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
       _id: new ObjectId(id),
     });
-
+   
     // pokemon from database
     let currentPokemon = user?.currentPokemon!;
 
     // api call
     let currPokemonResponse = await pokemonApi(currentPokemon);
 
+    let currentPokemonName = currPokemonResponse.data.name ;
     // current pokemon img
     let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
-
+    
+  
+    
     // render catch page
     res.render("catch", {
       user: user,
-      pokemon,
+      rpokemon,
       PokemonCaught,
       currentPokemonImg: currentPokemonImg,
+      currentPokemonName: currentPokemonName,
+      
     });
   } catch (e) {
     console.error(e);
   } finally {
     await client.close();
+  }
+});
+
+app.post("/user/:id/addPokemon", async (req, res) => {
+  try {
+    await client.connect();
+    let id = new ObjectId(req.params.id);
+    const pokemonName = req.body.pokemonName; 
+    // Add the caught Pokémon to the user's profile
+    await addPokemon(pokemonName, id);
+
+    res.redirect(`/user/${id}/catch`);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("Error adding Pokémon to user's profile.");
+  }
+});
+
+app.post("/user/:id/deletePokemon", async (req, res) => {
+  try {
+    await client.connect();
+    let id = new ObjectId(req.params.id);
+    const pokemonName = req.body.pokemonName; 
+    // Delete the Pokémon from the user's profile
+    await deletePokemon(pokemonName, id);
+
+    res.redirect(`/user/${id}/catch`);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("Error deleting Pokémon from user's profile.");
   }
 });
 
@@ -587,3 +627,19 @@ app.listen(app.get("port"), async () => {
   console.log(`Web application started at http://localhost:${app.get("port")}`);
   console.log("Account read!");
 });
+
+
+
+
+function catchPokemon(TargetPokemon: any, HuidigePokemon: any): boolean {
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    const catchRate = (100 - TargetPokemon.defence + HuidigePokemon.attack) / 100;
+    const randomNum = Math.random();
+
+    if (randomNum <= catchRate) {
+      return true;
+    }
+  }
+
+  return false;
+}
