@@ -8,27 +8,19 @@
     <link rel="stylesheet" href="/css/catch.css">
     <link rel="stylesheet" href="/css/pokebal.css">
     <title>Catch</title>
+    
 
     <%- include ("partials/header.ejs") %>
     
     <main>
         <div class="Flex">
             <div id="myPokemon" class="myPokemon">
-               <div class="btnContainer">
-                    <p>kies:</p> 
-                    <div class="dropdown" >
-                        <button class="dropbtn"></button>
-                        <div class="dropdown-content">
-                            <a href="#">Pikachu</a>
-                            <a href="#">Squirtle</a>
-                            <a href="#">Charmander</a>
-                        </div>
-                    </div>
-                </div> 
-
-                <h3 class="name">Pikachu</h3>
+                <div class="Flex2">
+                    <h3 class="name"><%= currentPokemonName %></h3> 
+                    <a href="/user/<%= user._id %>/pokedex"><button class="changeButton">Change</button></a>
+                </div>
                 <div class="img">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png" width="140px" height="140px" >
+                    <img src="<%= currentPokemonImg %>" width="140px" height="140px" >
                 </div>
                             
                     
@@ -38,19 +30,48 @@
             <div id="randomPokemon" class="Flex2">
                 <div class="randomPokemon">
                     <div >
-                        <a href="/user/<%= user._id %>/catch"><button class="randomPokeButton">New Pokemon</button> </a>
+                        <a href="/user/<%= user._id %>/catch"><button class="randomPokeButton">New Pokemon</button></a>
                     </div>
                     <div class="Flex3">
-                        <h3 class="nameRando"><%= pokemon.name %></h3>
+                        <h3 class="nameRando"><%= rpokemon.name %></h3>
                         <% if (PokemonCaught) { %>
-                            <img src="/images/catch-pokeball-green.png" width="50px" height="50px">
+                            <button data-modal-target="#modal2" class="picButton"><img src="/images/catch-pokeball-green.png" width="50px" height="50px"></button>
                           <% } else { %>
-                            <img src="/images/catch-pokeball-red.png" width="50px" height="50px">
+                            <button data-modal-target="#modal1" class="picButton"><img src="/images/catch-pokeball-red.png" width="50px" height="50px"></button>
                           <% } %> 
                     </div>
                     
+                    <div class="modal" id="modal1">
+                        <div class="modal-header">
+                          <div class="title">Catch</div>
+                          <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to try catching <%= rpokemon.name %> ?
+                        </div>
+                        <div class="modalFlex"> 
+                            <button  id="yesButtonModal1" class="yesButton">catch</button>
+                        </div>
+                      </div>
+                      <div id="overlay"></div>
+
+
+                      <div class="modal" id="modal2">
+                        <div class="modal-header">
+                          <div class="title">Release</div>
+                          <button data-close-button class="close-button">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to release <%= rpokemon.name %> ?
+                        </div>
+                        <div class="modalFlex"> 
+                            <button id="yesButtonModal2" class="yesButton">Yes</button>
+                        </div>
+                      </div>
+                      <div id="overlay"></div>
+                    
                         <div class="img">
-                            <img src="<%= pokemon.sprites.front_default %>" width="400px" height="350px" >
+                            <img src="<%= rpokemon.sprites.front_default %>" width="400px" height="350px" >
                         </div>    
                     
                 </div>
@@ -58,38 +79,38 @@
                     <h3>Base stats</h3>
                     <div id="stats2" >
                         <div class="skill_box">
-                            hp:<p class="stat_value"><%= pokemon.hp %></p> 
+                            hp:<p class="stat_value"><%= rpokemon.hp %></p> 
                         <div class="skill">
-                        <div class="skill_level"data-percentage="<%= pokemon.hp %>"></div>
+                        <div class="skill_level"data-percentage="<%= rpokemon.hp %>"></div>
                     </div>
                     <div class="skill_box">
-                            attack:<p class="stat_value"><%= pokemon.attack %></p> 
+                            attack:<p class="stat_value"><%= rpokemon.attack %></p> 
                         <div class="skill">
-                            <div class="skill_level"data-percentage="<%= pokemon.attack %>">
+                            <div class="skill_level"data-percentage="<%= rpokemon.attack %>">
                         </div>
                     </div> 
                 <div class="skill_box">
-                    defense:<p class="stat_value"><%= pokemon.defense %></p> 
+                    defense:<p class="stat_value"><%= rpokemon.defense %></p> 
                     <div class="skill">
-                        <div class="skill_level" data-percentage="<%= pokemon.defense %>">
+                        <div class="skill_level" data-percentage="<%= rpokemon.defense %>">
                     </div>        
                 </div>             
                 <div class="skill_box">
-                    special-attack:<p class="stat_value"><%= pokemon.specialAttack %></p> 
+                    special-attack:<p class="stat_value"><%= rpokemon.specialAttack %></p> 
                     <div class="skill">
-                        <div class="skill_level"data-percentage="<%= pokemon.specialAttack %>">
+                        <div class="skill_level"data-percentage="<%= rpokemon.specialAttack %>">
                     </div>
                 </div> 
                 <div class="skill_box">
-                    special-defense: <p class="stat_value"><%=pokemon.specialDefense %></p> 
+                    special-defense: <p class="stat_value"><%= rpokemon.specialDefense %></p> 
                     <div class="skill">
-                        <div class="skill_level"data-percentage="<%= pokemon.specialDefense %>">
+                        <div class="skill_level"data-percentage="<%= rpokemon.specialDefense %>">
                     </div>
                 </div> 
                 <div class="skill_box">
-                    speed:<p class="stat_value"><%= pokemon.speed %></p> 
+                    speed:<p class="stat_value"><%= rpokemon.speed %></p> 
                     <div class="skill">
-                        <div class="skill_level"data-percentage="<%= pokemon.speed %>">
+                        <div class="skill_level"data-percentage="<%= rpokemon.speed %>">
                     </div>        
                 </div>
             </div>
@@ -102,3 +123,57 @@
        
     <%- include ("partials/footer.ejs") %>
 
+   
+    <script>
+        // Get the "Catch" and "Release" buttons
+        const yesButtonModal1 = document.getElementById("yesButtonModal1");
+        const yesButtonModal2 = document.getElementById("yesButtonModal2");
+      
+        // Add event listeners to the buttons
+        yesButtonModal1?.addEventListener("click", catchPokemon); // Remove parentheses here
+        yesButtonModal2?.addEventListener("click", releasePokemon); // Remove parentheses here
+      
+        // Function to handle catching a Pokemon
+        function catchPokemon(user) {
+          
+          fetch(`/user/${user._id}/addPokemon`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ pokemonName: "<%= rpokemon.name %>" }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Pokemon caught:", data);
+              // Do something with the response
+            })
+            .catch((error) => {
+              console.error("Error catching Pokemon:", error);
+              // Handle the error
+            });
+        }
+      
+        // Function to handle releasing a Pokemon
+        function releasePokemon() {
+          const id = user._id ;
+          fetch(`/user/${id}/deletePokemon`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ pokemonName: "<%= rpokemon.name %>" }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log("Pokemon released:", data);
+              // Do something with the response
+              // You can redirect to another page or update the UI accordingly
+            })
+            .catch((error) => {
+              console.error("Error releasing Pokemon:", error);
+              // Handle the error
+            });
+        }
+      </script>
+      

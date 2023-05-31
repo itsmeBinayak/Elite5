@@ -32,7 +32,7 @@ export async function getRandomPokemon(): Promise<Pokemon> {
   }
 }
 
-async function getPokemon(pokemonName: string): Promise<Pokemon> {
+ export async function getPokemon(pokemonName: string): Promise<Pokemon> {
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     const data = await response.json();
