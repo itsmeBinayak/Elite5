@@ -40,20 +40,38 @@
                             <button data-modal-target="#modal1" class="picButton"><img src="/images/catch-pokeball-red.png" width="50px" height="50px"></button>
                           <% } %> 
                     </div>
+                    <form 
+                        action="/user/<%= user._id %>/addPokemon"
+                        method="post">
+
+                        <input
+                        type="hidden"
+                        name="randomPokemon"
+                        value="<%= rpokemon.name %>"
+                        />
+                        
+                        <div class="modal" id="modal1">
+                            <div class="modal-header">
+                              <div class="title">Catch</div>
+                              <button data-close-button class="close-button">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                Do you want to try catching <%= rpokemon.name %> ?
+                               
+                            </div>
+                            <div class="modalFlex"> 
+                                <input
+                            type="submit"
+                            value="Catch this pokemon"
+                            class="update"
+                            href="/user/<%= user._id %>"
+                        />
+                            </div>
+                          </div>
+                          <div id="overlay"></div>
+
+                    </form>
                     
-                    <div class="modal" id="modal1">
-                        <div class="modal-header">
-                          <div class="title">Catch</div>
-                          <button data-close-button class="close-button">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            Do you want to try catching <%= rpokemon.name %> ?
-                        </div>
-                        <div class="modalFlex"> 
-                            <button  id="yesButtonModal1" class="yesButton">catch</button>
-                        </div>
-                      </div>
-                      <div id="overlay"></div>
 
 
                       <div class="modal" id="modal2">
@@ -122,58 +140,3 @@
         </div>
        
     <%- include ("partials/footer.ejs") %>
-
-   
-    <script>
-        // Get the "Catch" and "Release" buttons
-        const yesButtonModal1 = document.getElementById("yesButtonModal1");
-        const yesButtonModal2 = document.getElementById("yesButtonModal2");
-      
-        // Add event listeners to the buttons
-        yesButtonModal1?.addEventListener("click", catchPokemon); // Remove parentheses here
-        yesButtonModal2?.addEventListener("click", releasePokemon); // Remove parentheses here
-      
-        // Function to handle catching a Pokemon
-        function catchPokemon(user) {
-          
-          fetch(`/user/${user._id}/addPokemon`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ pokemonName: "<%= rpokemon.name %>" }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Pokemon caught:", data);
-              // Do something with the response
-            })
-            .catch((error) => {
-              console.error("Error catching Pokemon:", error);
-              // Handle the error
-            });
-        }
-      
-        // Function to handle releasing a Pokemon
-        function releasePokemon() {
-          const id = user._id ;
-          fetch(`/user/${id}/deletePokemon`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ pokemonName: "<%= rpokemon.name %>" }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              console.log("Pokemon released:", data);
-              // Do something with the response
-              // You can redirect to another page or update the UI accordingly
-            })
-            .catch((error) => {
-              console.error("Error releasing Pokemon:", error);
-              // Handle the error
-            });
-        }
-      </script>
-      

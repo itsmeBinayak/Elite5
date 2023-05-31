@@ -37,7 +37,7 @@
             
             user.yourPokemon.push({
                 name: pokemonName,
-                nickname: nickName||"",
+                nickname: nickName||pokemonName,
                 wins: 0,
                 loss: 0,
                 caught: new Date(),

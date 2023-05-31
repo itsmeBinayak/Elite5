@@ -574,15 +574,59 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
 app.post("/user/:id/addPokemon", async (req, res) => {
   try {
     await client.connect();
+    
     let id = new ObjectId(req.params.id);
-    const pokemonName = req.body.pokemonName; 
-    // Add the caught Pokémon to the user's profile
-    await addPokemon(pokemonName, id);
+    const randomPokemon = req.body.randomPokemon; 
+    
 
-    res.redirect(`/user/${id}/catch`);
+    let peopleProfileCollection = client
+    .db("Elite5Pokemon")
+    .collection("PeopleProfiles");
+
+    let user = await peopleProfileCollection.findOne<PeopleProfile>({
+      _id: id,
+    });
+    // Add the caught Pokémon to the user's profile
+    
+
+    let currentPokemon = user?.currentPokemon!;
+    let currPokemonResponse = await pokemonApi(currentPokemon);
+    let stats = currPokemonResponse.data.stats;
+    let attack = await pokemonStats(stats, "attack");
+    let randomPoke = await pokemonApi(randomPokemon);
+    let rstats = randomPoke.data.stats;
+    let defence = await pokemonStats(rstats, "defense");
+    let Catch = catchPokemon(attack,defence)
+    let count:number = 0;
+    // for (let attamps = 1; attamps <= 3 ; attamps++) {
+    //   if(Catch){
+          addPokemon(randomPokemon,id)
+
+      // } 
+      //  return count = attamps
+    // }
+    // console.log(count)
+    console.log(Catch)
+    console.log(defence)
+    console.log(attack)
+    await peopleProfileCollection.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: user,
+      }
+    );
+     res.redirect(`/user/${id}/catch`);
+
+    
+    
   } catch (e) {
     console.error(e);
     res.status(500).send("Error adding Pokémon to user's profile.");
+  }
+  finally {
+  await client.close();
   }
 });
 
@@ -599,6 +643,9 @@ app.post("/user/:id/deletePokemon", async (req, res) => {
     console.error(e);
     res.status(500).send("Error deleting Pokémon from user's profile.");
   }
+  finally {
+    await client.close();
+    }
 });
 
 // whoIsThatPokemon - whoIsThatPokemon page
@@ -633,15 +680,13 @@ app.listen(app.get("port"), async () => {
 
 
 
-function catchPokemon(TargetPokemon: any, HuidigePokemon: any): boolean {
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    const catchRate = (100 - TargetPokemon.defence + HuidigePokemon.attack) / 100;
-    const randomNum = Math.random();
+function catchPokemon(attack:number, defence:number): boolean {
+  
+    const catchRate = (100 - defence + attack);
+    const randomNum = Math.random()*101;
 
     if (randomNum <= catchRate) {
       return true;
     }
-  }
-
   return false;
 }
