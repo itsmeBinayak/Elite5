@@ -23,6 +23,7 @@ import {
   PokemonInfo,
 } from "./types";
 import { get } from "http";
+import { count } from "console";
 
 // database url
 const uri: string =
@@ -552,8 +553,13 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
     let currentPokemonName = currPokemonResponse.data.name ;
     // current pokemon img
     let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
+    //current pokemon stats
+    let stats = currPokemonResponse.data.stats;
+    //current pokemon attack
+    let attack = await pokemonStats(stats, "attack");
+
+    let count:number = 3
     
-  
     
     // render catch page
     res.render("catch", {
@@ -562,6 +568,8 @@ app.get("/user/:id/catch", async (req: any, res: any) => {
       PokemonCaught,
       currentPokemonImg: currentPokemonImg,
       currentPokemonName: currentPokemonName,
+      count,
+      attack
       
     });
   } catch (e) {
@@ -575,7 +583,8 @@ app.post("/user/:id/addPokemon", async (req, res) => {
   try {
     await client.connect();
     
-    let id = new ObjectId(req.params.id);
+    let id = req.params.id;
+    let ID = parseInt(id)
     const randomPokemon = req.body.randomPokemon; 
     
 
@@ -584,41 +593,62 @@ app.post("/user/:id/addPokemon", async (req, res) => {
     .collection("PeopleProfiles");
 
     let user = await peopleProfileCollection.findOne<PeopleProfile>({
-      _id: id,
+      _id: new ObjectId(id),
     });
     // Add the caught Pokémon to the user's profile
     
-
+    //current pokemon
     let currentPokemon = user?.currentPokemon!;
     let currPokemonResponse = await pokemonApi(currentPokemon);
     let stats = currPokemonResponse.data.stats;
     let attack = await pokemonStats(stats, "attack");
-    let randomPoke = await pokemonApi(randomPokemon);
-    let rstats = randomPoke.data.stats;
-    let defence = await pokemonStats(rstats, "defense");
+    //random pokemon
+    let randomPoke = await getPokemon(randomPokemon);
+    let defence = randomPoke.defense
+    
+    //catch function
     let Catch = catchPokemon(attack,defence)
-    let count:number = 0;
-    // for (let attamps = 1; attamps <= 3 ; attamps++) {
-    //   if(Catch){
-          addPokemon(randomPokemon,id)
 
-      // } 
-      //  return count = attamps
-    // }
-    // console.log(count)
+    
+    let currentPokemonName = currPokemonResponse.data.name ;
+    let currentPokemonImg = currPokemonResponse.data.sprites.front_default;
+
+    let PokemonCaught = await isPokemonCaught(randomPokemon.name, ID);
+    
+    let count: number = parseInt(req.body.count); // Get the remaining attempts count from the form submission
+
+    if (count > 0) {
+      if (Catch) {
+        addPokemon(randomPokemon, new ObjectId(id));
+        PokemonCaught = true;
+      }
+      count--; 
+    }
+    
+
+    console.log(count)
     console.log(Catch)
     console.log(defence)
     console.log(attack)
     await peopleProfileCollection.updateOne(
       {
-        _id: id,
+        _id: new ObjectId(id),
       },
       {
         $set: user,
       }
     );
-     res.redirect(`/user/${id}/catch`);
+    res.render("catch", {
+      user: user,
+      rpokemon: randomPoke,
+      PokemonCaught,
+      currentPokemonImg: currentPokemonImg,
+      currentPokemonName: currentPokemonName,
+      count: count,
+      attack,
+    });
 
+  
     
     
   } catch (e) {
@@ -634,7 +664,7 @@ app.post("/user/:id/deletePokemon", async (req, res) => {
   try {
     await client.connect();
     let id = new ObjectId(req.params.id);
-    const pokemonName = req.body.pokemonName; 
+    const pokemonName = req.body.randomPokemon; 
     // Delete the Pokémon from the user's profile
     await deletePokemon(pokemonName, id);
 
@@ -683,8 +713,8 @@ app.listen(app.get("port"), async () => {
 function catchPokemon(attack:number, defence:number): boolean {
   
     const catchRate = (100 - defence + attack);
-    const randomNum = Math.random()*101;
-
+    const randomNum =Math.floor(Math.random() * 101);
+    console.log(randomNum)
     if (randomNum <= catchRate) {
       return true;
     }

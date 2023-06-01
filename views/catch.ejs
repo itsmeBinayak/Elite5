@@ -22,6 +22,15 @@
                 <div class="img">
                     <img src="<%= currentPokemonImg %>" width="140px" height="140px" >
                 </div>
+                <section class="myPokeStats">
+                    <div class="skill_box">
+                        attack:<p class="stat_value"><%= attack %></p> 
+                    <div class="skill">
+                        <div class="skill_level"data-percentage="<%= attack %>">
+                    </div>
+                </div> 
+                </section>
+
                             
                     
             </div>
@@ -36,9 +45,15 @@
                         <h3 class="nameRando"><%= rpokemon.name %></h3>
                         <% if (PokemonCaught) { %>
                             <button data-modal-target="#modal2" class="picButton"><img src="/images/catch-pokeball-green.png" width="50px" height="50px"></button>
+                            
                           <% } else { %>
-                            <button data-modal-target="#modal1" class="picButton"><img src="/images/catch-pokeball-red.png" width="50px" height="50px"></button>
+                            <% if ( 0 >= count) { %>
+                                <button data-modal-target="#modal3" class="picButton"><img src="/images/catch-pokeball-red.png" width="50px" height="50px"></button>
+                            <% } else { %>
+                                <button data-modal-target="#modal1" class="picButton"><img src="/images/catch-pokeball-red.png" width="50px" height="50px"></button>
+                                <% } %>
                           <% } %> 
+                           
                     </div>
                     <form 
                         action="/user/<%= user._id %>/addPokemon"
@@ -49,6 +64,11 @@
                         name="randomPokemon"
                         value="<%= rpokemon.name %>"
                         />
+                        <input
+                        type="hidden"
+                        name="count"
+                        value="<%= count %>"
+                        />
                         
                         <div class="modal" id="modal1">
                             <div class="modal-header">
@@ -56,7 +76,8 @@
                               <button data-close-button class="close-button">&times;</button>
                             </div>
                             <div class="modal-body">
-                                Do you want to try catching <%= rpokemon.name %> ?
+                                Do you want to try catching <%= rpokemon.name %> ?<br>
+                                you have <%= count %> tries
                                
                             </div>
                             <div class="modalFlex"> 
@@ -72,8 +93,14 @@
 
                     </form>
                     
-
-
+                    <form 
+                        action="/user/<%= user._id %>/deletePokemon"
+                        method="post">
+                        <input
+                        type="hidden"
+                        name="randomPokemon"
+                        value="<%= rpokemon.name %>"
+                        />
                       <div class="modal" id="modal2">
                         <div class="modal-header">
                           <div class="title">Release</div>
@@ -83,7 +110,29 @@
                             Do you want to release <%= rpokemon.name %> ?
                         </div>
                         <div class="modalFlex"> 
-                            <button id="yesButtonModal2" class="yesButton">Yes</button>
+                            <input
+                            type="submit"
+                            value="Free this Pokemon"
+                            class="update"
+                            href="/user/<%= user._id %>"
+                        />
+                        </div>
+                      </div>
+                      <div id="overlay"></div>
+                    </form>
+
+                    <div class="modal" id="modal3">
+                        <div class="modal-header">
+                          <div class="title">failed</div>
+
+                        </div>
+                        <div class="modal-body">
+                           You are out of tries and didn't catch <%= rpokemon.name %>
+
+                           
+                        </div>
+                        <div class="modalFlex"> 
+                            
                         </div>
                       </div>
                       <div id="overlay"></div>
