@@ -11,7 +11,7 @@
     <%- include ("partials/header.ejs") %>
 
     <main>
-      <section class="hp_Container">
+      <div class="container">
         <article class="card">
           <div class="img">
             <img src="<%= img %>" class="hp_bigImg" />
@@ -28,7 +28,7 @@
               value="<%= nickName%>"
               id=""
             /><br />
-            Wins: 
+            Wins:
             <input
               type="number"
               name="wins"
@@ -49,40 +49,66 @@
             <input type="submit" value="Update" class="update" />
           </form>
         </article>
-        <article class="hp_item infoPokemon">
-          <h1 class="h1Stats">Base stats</h1>
-          <table>
-            <tr>
-              <th class="statTable">Stat</th>
-              <th class="valueTable">Value</th>
-            </tr>
-            <tr>
-              <td>HP</td>
-              <td><%= hp %></td>
-            </tr>
-            <tr>
-              <td>Attack</td>
-              <td><%= attack %></td>
-            </tr>
-            <tr>
-              <td>Defense</td>
-              <td><%= defense %></td>
-            </tr>
-            <tr>
-              <td>Special Attack</td>
-              <td><%= specialAttack %></td>
-            </tr>
-            <tr>
-              <td>Special Defense</td>
-              <td><%= specialDefense %></td>
-            </tr>
-            <tr>
-              <td class="bottomLeftTable">Speed</td>
-              <td class="bottomRightTable"><%= speed %></td>
-            </tr>
-          </table>
-        </article>
-      </section>
+        <section class="pokemon-container">
+          <h3>Base stats</h3>
+          <div id="stats1">
+            <div class="skill_box">
+              hp:
+              <p class="stat_value"><%= hp %></p>
+              <div class="skill">
+                <div class="skill_level" data-percentage="<%= hp %>"></div>
+              </div>
+              <div class="skill_box">
+                attack:
+                <p class="stat_value"><%= attack %></p>
+                <div class="skill">
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= attack %>"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill_box">
+                defense:
+                <p class="stat_value"><%= defense %></p>
+                <div class="skill">
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= defense %>"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill_box">
+                special-attack:
+                <p class="stat_value"><%= specialAttack %></p>
+                <div class="skill">
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= specialAttack %>"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill_box">
+                special-defense:
+                <p class="stat_value"><%= specialDefense %></p>
+                <div class="skill">
+                  <div
+                    class="skill_level"
+                    data-percentage="<%= specialDefense %>"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill_box">
+                speed:
+                <p class="stat_value"><%= speed %></p>
+                <div class="skill">
+                  <div class="skill_level" data-percentage="<%= speed %>"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
       <section class="grid">
         <% for(let pokemonInfo of pokemonInfos){%>
         <article class="card evoImg">
