@@ -110,7 +110,7 @@ const main = async () => {
     await client.connect();
     console.log("connect to database");
 
-    //  await DeleteAll();
+    // await DeleteAll();
 
     let peopleProfile = client
       .db("Elite5Pokemon")

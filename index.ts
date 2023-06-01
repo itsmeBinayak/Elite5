@@ -678,36 +678,11 @@ app.post("/user/:id/deletePokemon", async (req, res) => {
     }
 });
 
-// whoIsThatPokemon - whoIsThatPokemon page
-// app.get("/user/:id/whoIsThatPokemon", async (req: any, res: any) => {
-//   try {
-//     await client.connect();
-//     console.log("connected to database");
-
-//     let id: number = req.params.id;
-
-//     let peopleProfileCollection = client
-//       .db("Elite5Pokemon")
-//       .collection("PeopleProfiles");
-//     let user = await peopleProfileCollection.findOne<PeopleProfile>({
-//       _id: new ObjectId(id),
-//     });
-
-//     res.render("whoIsThatPokemon", { user: user });
-//   } catch (e) {
-//     console.error(e);
-//   } finally {
-//     await client.close();
-//   }
-// });
-
 // listen to localhost
 app.listen(app.get("port"), async () => {
   console.log(`Web application started at http://localhost:${app.get("port")}`);
   console.log("Account read!");
 });
-
-
 
 
 function catchPokemon(attack:number, defence:number): boolean {
